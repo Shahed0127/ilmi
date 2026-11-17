@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B6E5C">
+<meta name="description" content="ILMI – শিক্ষক নিবন্ধন ও প্রতিযোগিতামূলক পরীক্ষার MCQ অনুশীলন">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ILMI">
+<style>
+html { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+</style>
+<title>ILMI عِلْمِي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: phone-style single column app. Home menu grid, archive of exam cards, quiz screen with instant right/wrong feedback. */
+:root {
+  --bg: #EDF4F1;
+  --surface: #FFFFFF;
+  --surface2: #F3F8F6;
+  --fg: #13221E;
+  --muted: #566A65;
+  --line: #D6E3DE;
+  --accent: #0B6E5C;
+  --on-accent: #FFFFFF;
+  --warn-bg: #F2C14E;
+  --warn-fg: #40300A;
+  --orange: #B4570F;
+  --orange-bg: #FCEBD8;
+  --good: #167A43;
+  --good-bg: #E3F5EA;
+  --bad: #C0342B;
+  --bad-bg: #FBE5E3;
+  --font: "Hind Siliguri", "Noto Sans Bengali", "Kalpurush", system-ui, sans-serif;
+  --gold: #F0CB6E; --hero1: #0B6E5C; --hero2: #083B4C;
+  --pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%230B6E5C' stroke-opacity='.06' stroke-width='1.2'%3E%3Crect x='14' y='14' width='36' height='36'/%3E%3Crect x='14' y='14' width='36' height='36' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1513; --surface: #15211E; --surface2: #1C2B27; --fg: #E6F2EE; --muted: #9DB5AD; --line: #2A3D38; --hero1: #0E5A4C; --hero2: #0A2A38; --pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%238FE3CC' stroke-opacity='.05' stroke-width='1.2'%3E%3Crect x='14' y='14' width='36' height='36'/%3E%3Crect x='14' y='14' width='36' height='36' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
+    --accent: #4FD1B0; --on-accent: #05211A; --warn-bg: #6B5314; --warn-fg: #FFE9A8;
+    --orange: #F4B26F; --orange-bg: #3A2A18;
+    --good: #5FD28D; --good-bg: #17301F; --bad: #FF8F85; --bad-bg: #3A1D1F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1513; --surface: #15211E; --surface2: #1C2B27; --fg: #E6F2EE; --muted: #9DB5AD; --line: #2A3D38; --hero1: #0E5A4C; --hero2: #0A2A38; --pat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%238FE3CC' stroke-opacity='.05' stroke-width='1.2'%3E%3Crect x='14' y='14' width='36' height='36'/%3E%3Crect x='14' y='14' width='36' height='36' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
+  --accent: #4FD1B0; --on-accent: #05211A; --warn-bg: #6B5314; --warn-fg: #FFE9A8;
+  --orange: #F4B26F; --orange-bg: #3A2A18;
+  --good: #5FD28D; --good-bg: #17301F; --bad: #FF8F85; --bad-bg: #3A1D1F;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background-color: var(--bg); background-image: var(--pat); background-size: 64px 64px; color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.6;
+  padding-block: 12px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.app { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.col { display: flex; flex-direction: column; gap: 14px; }
+.muted { color: var(--muted); font-size: 14px; }
+p { margin: 0; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.hd { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; }
+.hd-t { text-align: center; font-weight: 700; font-size: 19px; }
+.ib { width: 44px; height: 44px; border: 0; background: transparent; display: grid; place-items: center; border-radius: 50%; color: var(--fg); }
+.ib:hover { background: var(--line); }
+.ib.ph { pointer-events: none; }
+svg.i { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.page-title { text-align: center; font-size: 22px; font-weight: 700; line-height: 1.4; text-wrap: balance; }
+
+.banner { background: var(--warn-bg); color: var(--warn-fg); border-radius: 12px; padding: 16px; text-align: center; font-weight: 500; border: 0; width: 100%; }
+.menu { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mi { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; min-height: 56px; text-align: left; font-weight: 500; }
+.mi:hover { border-color: var(--accent); }
+.ico { width: 38px; height: 38px; flex: none; border-radius: 12px; background: var(--surface2); color: var(--accent); display: grid; place-items: center; }
+.mi .badge { margin-left: auto; font-size: 13px; background: var(--accent); color: var(--on-accent); border-radius: 99px; padding: 0 8px; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 3px rgba(8, 59, 76, .07); }
+.row { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.chip { font-size: 13px; font-weight: 600; padding: 1px 10px; border-radius: 99px; background: var(--surface2); color: var(--muted); border: 1px solid var(--line); }
+.chip.done { color: var(--good); background: var(--good-bg); border-color: transparent; }
+.chip.tag { color: var(--warn-fg); background: var(--warn-bg); border-color: transparent; }
+.ctitle { font-size: 19px; font-weight: 700; line-height: 1.4; text-wrap: balance; }
+.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.linkbtn { border: 0; background: none; padding: 0; color: var(--accent); font-weight: 600; font-size: 14px; }
+.btns { display: flex; gap: 10px; }
+.btns .btn { flex: 1; min-width: 0; }
+.btn { border: 1.5px solid var(--line); background: var(--surface); padding: 11px 16px; border-radius: 10px; font-weight: 600; min-height: 48px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.danger { color: var(--bad); }
+.divider { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.search { display: grid; grid-template-columns: 1fr 120px; gap: 10px; }
+input[type=text], input[type=number], input[type=date], select, textarea { background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-height: 46px; }
+textarea { min-height: 200px; resize: vertical; font-size: 15px; line-height: 1.55; }
+label.field { display: flex; flex-direction: column; gap: 6px; font-weight: 500; font-size: 15px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check { display: flex; align-items: center; gap: 10px; }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.empty { text-align: center; color: var(--muted); padding: 28px 12px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
+.stats b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; padding: 12px; font-family: var(--font); font-size: 14px; overflow-x: auto; }
+.status { font-size: 15px; font-weight: 500; }
+.status.ok { color: var(--good); }
+.status.err { color: var(--bad); }
+
+/* quiz */
+.qtop { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-weight: 500; font-size: 15px; }
+.timer { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 18px; padding: 1px 12px; border-radius: 99px; background: var(--line); }
+.timer.low { background: var(--bad-bg); color: var(--bad); }
+.bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .25s; }
+.qhead { display: flex; gap: 8px; align-items: flex-start; justify-content: space-between; }
+.qtext { font-size: 20px; line-height: 1.5; font-weight: 600; text-wrap: pretty; }
+.fav { flex: none; border: 0; background: transparent; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; color: var(--muted); }
+.fav.on { color: var(--bad); }
+.fav.on svg { fill: currentColor; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt { display: flex; align-items: center; gap: 12px; text-align: left; width: 100%; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 56px; }
+.opt .k { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-weight: 600; font-size: 15px; }
+.opt .t { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.opt .m { flex: none; font-weight: 700; font-size: 20px; }
+.opt:not(:disabled):hover { border-color: var(--accent); }
+.opt.correct { background: var(--good-bg); border-color: var(--good); color: var(--good); }
+.opt.correct .k { border-color: var(--good); }
+.opt.wrong { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.opt.wrong .k { border-color: var(--bad); }
+.opt:disabled { cursor: default; }
+.opt:disabled:not(.correct):not(.wrong) { opacity: .6; }
+.opt.static { cursor: default; min-height: 0; padding: 8px 12px; }
+.fb { border-radius: 10px; padding: 12px 14px; font-weight: 500; }
+.fb.good { background: var(--good-bg); color: var(--good); }
+.fb.bad { background: var(--bad-bg); color: var(--bad); }
+.score-big { font-size: 56px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.rev { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.rev .you { color: var(--bad); font-size: 15px; }
+.rev .ans { color: var(--good); font-size: 15px; font-weight: 500; }
+.rank { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-weight: 700; }
+.li { display: flex; gap: 12px; align-items: center; }
+.li > .grow { flex: 1; min-width: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.hero { position: relative; overflow: hidden; border-radius: 20px; padding: 22px 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; color: #fff;
+  background: radial-gradient(120% 90% at 85% 0%, rgba(240, 203, 110, .30), transparent 55%), linear-gradient(145deg, var(--hero1), var(--hero2)); }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='.14' stroke-width='1.2'%3E%3Crect x='14' y='14' width='36' height='36'/%3E%3Crect x='14' y='14' width='36' height='36' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E"); background-size: 64px 64px; pointer-events: none; }
+.hero > * { position: relative; }
+.hero .latin { letter-spacing: .38em; padding-left: .38em; font-weight: 700; font-size: 15px; color: var(--gold); }
+.hero .tag { font-size: 19px; font-weight: 600; margin-top: 8px; }
+.hero .sub { font-size: 14px; opacity: .85; }
+.ar { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: 60px; line-height: 1.45; color: var(--gold); font-weight: 700; }
+.foot { text-align: center; color: var(--muted); font-size: 14px; padding-top: 6px; }
+.gd ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="app" id="app"></div>
+
+<script>
+(function () {
+  'use strict';
+  var LETTERS = ['ক', 'খ', 'গ', 'ঘ', 'ঙ'];
+  var MONTHS = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+
+  /* ---------- built-in question sets ---------- */
+  var SAMPLE = [
+    { q: 'ইসলামের মূল স্তম্ভ কয়টি?', o: ['৩টি', '৪টি', '৫টি', '৬টি'], a: 2, e: 'ইসলামের স্তম্ভ পাঁচটি: কালেমা, সালাত, যাকাত, সাওম ও হজ।' },
+    { q: 'প্রতিদিন কত ওয়াক্ত সালাত ফরজ?', o: ['৩ ওয়াক্ত', '৪ ওয়াক্ত', '৫ ওয়াক্ত', '৬ ওয়াক্ত'], a: 2, e: 'ফজর, যোহর, আসর, মাগরিব ও এশা।' },
+    { q: 'কুরআনের প্রথম সূরা কোনটি?', o: ['সূরা আল-বাকারা', 'সূরা আল-ফাতিহা', 'সূরা আল-ইখলাস', 'সূরা আন-নাস'], a: 1, e: '' },
+    { q: 'কোন মাসে রোজা রাখা ফরজ?', o: ['রজব', 'শাবান', 'রমযান', 'মুহাররম'], a: 2, e: '' },
+    { q: 'আমাদের শেষ নবী কে?', o: ['হযরত ঈসা (আ.)', 'হযরত মুসা (আ.)', 'হযরত ইবরাহীম (আ.)', 'হযরত মুহাম্মদ (সা.)'], a: 3, e: '' },
+    { q: 'মানবজাতির প্রথম নবী কে ছিলেন?', o: ['হযরত নূহ (আ.)', 'হযরত আদম (আ.)', 'হযরত ইদরীস (আ.)', 'হযরত ইউসুফ (আ.)'], a: 1, e: '' }
+  ];
+  var EXAM = [
+    { q: 'কোন দেশটি এশিয়া মহাদেশের অন্তর্ভুক্ত নয়?', o: ['সিরিয়া', 'লিবিয়া', 'ইরাক', 'জর্দান'], a: 1 },
+    { q: '\'পালাউ\' দেশটি কোন মহাদেশে অবস্থিত?', o: ['এশিয়া', 'ইউরোপ', 'আফ্রিকা', 'ওশেনিয়া'], a: 3 },
+    { q: 'কোন দেশ আফ্রিকা মহাদেশের অন্তর্ভুক্ত নয়?', o: ['মরক্কো', 'লিবিয়া', 'তিউনিসিয়া', 'ইয়েমেন'], a: 3 },
+    { q: '\'Seven Sisters\' কোন দেশে অবস্থিত?', o: ['ভারত', 'পাকিস্তান', 'মিয়ানমার', 'ভুটান'], a: 0 },
+    { q: 'ম্যাকমোহন লাইন কোন কোন দেশের সীমানা নির্ধারণ করে?', o: ['ভারত ও পাকিস্তান', 'চীন ও ভারত', 'পাকিস্তান ও আফগানিস্তান', 'চীন ও রাশিয়া'], a: 1 },
+    { q: '\'লাইন অব কন্ট্রোল\' কোন দুটি দেশের মধ্যে?', o: ['ভারত-পাকিস্তান', 'ভারত-চীন', 'ভারত-বাংলাদেশ', 'পাকিস্তান-আফগানিস্তান'], a: 0 },
+    { q: 'বিশ্বের মোট মহাদেশ কয়টি?', o: ['৫টি', '৬টি', '৭টি', '৮টি'], a: 2 },
+    { q: 'আয়তনে বিশ্বের বৃহত্তম মহাদেশ কোনটি?', o: ['আফ্রিকা', 'এশিয়া', 'ইউরোপ', 'উত্তর আমেরিকা'], a: 1 },
+    { q: 'আয়তনে বিশ্বের ক্ষুদ্রতম মহাদেশ কোনটি?', o: ['ইউরোপ', 'অ্যান্টার্কটিকা', 'অস্ট্রেলিয়া/ওশেনিয়া', 'দক্ষিণ আমেরিকা'], a: 2 },
+    { q: 'আয়তনে বিশ্বের বৃহত্তম দেশ কোনটি?', o: ['কানাডা', 'রাশিয়া', 'চীন', 'যুক্তরাষ্ট্র'], a: 1 },
+    { q: 'জনসংখ্যায় বিশ্বের বৃহত্তম দেশ কোনটি?', o: ['ভারত', 'যুক্তরাষ্ট্র', 'ইন্দোনেশিয়া', 'পাকিস্তান'], a: 0 },
+    { q: 'আয়তনে বিশ্বের ক্ষুদ্রতম দেশ কোনটি?', o: ['মোনাকো', 'ভ্যাটিকান সিটি', 'সান মারিনো', 'মালদ্বীপ'], a: 1 },
+    { q: 'আয়তনে বিশ্বের বৃহত্তম মুসলিম দেশ কোনটি?', o: ['ইন্দোনেশিয়া', 'সৌদি আরব', 'কাজাখস্তান', 'ইরান'], a: 2 },
+    { q: 'জনসংখ্যায় বিশ্বের বৃহত্তম মুসলিম দেশ কোনটি?', o: ['পাকিস্তান', 'ইন্দোনেশিয়া', 'বাংলাদেশ', 'মিসর'], a: 1 },
+    { q: 'আয়তনে বিশ্বের ক্ষুদ্রতম মুসলিম দেশ কোনটি?', o: ['বাহরাইন', 'ব্রুনেই', 'মালদ্বীপ', 'কুয়েত'], a: 2 },
+    { q: 'বিশ্বের সবচেয়ে সরু রাষ্ট্র কোনটি?', o: ['চিলি', 'ইতালি', 'নরওয়ে', 'ভিয়েতনাম'], a: 0 },
+    { q: 'পৃথিবীর কোন কোন দেশ দুটি মহাদেশে অবস্থিত?', o: ['তুরস্ক ও রাশিয়া', 'ভারত ও চীন', 'সৌদি আরব ও জাপান', 'ইরান ও ইরাক'], a: 0 },
+    { q: 'কোন শহরটি একই সঙ্গে দুটি মহাদেশে পড়েছে?', o: ['আঙ্কারা', 'ইস্তাম্বুল', 'দুবাই', 'বাগদাদ'], a: 1 },
+    { q: 'বর্তমানে কোন দেশকে নগর রাষ্ট্র বলা হয়?', o: ['মালয়েশিয়া', 'সিঙ্গাপুর', 'থাইল্যান্ড', 'ব্রুনেই'], a: 1 },
+    { q: 'প্রাচীন গ্রিসের কোথায় নগর রাষ্ট্র গড়ে উঠেছিল?', o: ['এথেন্স ও স্পার্টা', 'রোম ও কার্থেজ', 'ব্যাবিলন ও নিনেভা', 'মেমফিস ও থিবস'], a: 0 },
+    { q: 'কোনটি দক্ষিণ এশীয় দেশ নয়?', o: ['নেপাল', 'ভুটান', 'মিয়ানমার', 'শ্রীলঙ্কা'], a: 2, e: 'মিয়ানমার দক্ষিণ-পূর্ব এশিয়ার দেশ।' },
+    { q: 'বিশ্বের বৃহত্তম মহাসাগর কোনটি?', o: ['আটলান্টিক মহাসাগর', 'ভারত মহাসাগর', 'প্রশান্ত মহাসাগর', 'উত্তর মহাসাগর'], a: 2 },
+    { q: 'বিশ্বের বৃহত্তম নদী কোনটি?', o: ['নীলনদ', 'আমাজন', 'মিসিসিপি', 'ইয়াংৎসি'], a: 1 },
+    { q: 'বিশ্বের দীর্ঘতম নদী কোনটি?', o: ['আমাজন', 'গঙ্গা', 'নীলনদ', 'ইয়াংৎসি'], a: 2 },
+    { q: 'বিশ্বের গভীরতম হ্রদ কোনটি?', o: ['কাস্পিয়ান সাগর', 'বৈকাল হ্রদ', 'ভিক্টোরিয়া হ্রদ', 'সুপিরিয়র হ্রদ'], a: 1, e: 'বৈকাল হ্রদ রাশিয়ায় অবস্থিত।' },
+    { q: 'বিশ্বের উচ্চতম জলপ্রপাত কোনটি?', o: ['নায়াগ্রা', 'ভিক্টোরিয়া', 'অ্যাঞ্জেলস ফলস', 'ইগুয়াজু'], a: 2, e: 'অ্যাঞ্জেলস ফলস ভেনিজুয়েলায় অবস্থিত।' },
+    { q: 'নায়াগ্রা জলপ্রপাত কোথায় অবস্থিত?', o: ['যুক্তরাষ্ট্র ও কানাডা', 'ব্রাজিল ও আর্জেন্টিনা', 'জাম্বিয়া ও জিম্বাবুয়ে', 'ভেনিজুয়েলা ও গায়ানা'], a: 0 },
+    { q: 'বিশ্বের বৃহত্তম দ্বীপ কোনটি?', o: ['মাদাগাস্কার', 'গ্রিনল্যান্ড', 'বোর্নিও', 'সুমাত্রা'], a: 1 },
+    { q: 'বিশ্বের সর্বোচ্চ পর্বত শৃঙ্গের নাম কী?', o: ['কে-টু', 'কাঞ্চনজঙ্ঘা', 'মাউন্ট এভারেস্ট', 'ম্যাকিনলে'], a: 2 },
+    { q: 'বিশ্বের গভীরতম খাত কোনটি?', o: ['মারিয়ানা ট্রেঞ্চ', 'পুয়ের্তো রিকো ট্রেঞ্চ', 'জাভা ট্রেঞ্চ', 'টোঙ্গা ট্রেঞ্চ'], a: 0, e: 'মারিয়ানা ট্রেঞ্চ প্রশান্ত মহাসাগরে অবস্থিত।' }
+  ];
+  var BUILTIN = [
+    { id: 'world-1', title: 'বিশ্ব পরিচিতি', date: '2026-11-16', duration: 15, tag: 'MCQ', builtin: true,
+      topic: 'মহাদেশ, দেশ, নগর রাষ্ট্র, মহাসাগর, নদী, হ্রদ, জলপ্রপাত, দ্বীপ, পর্বত ও গভীরতম খাত। উৎস: শিক্ষক নিবন্ধন Analysis, আন্তর্জাতিক বিষয় ও চলতি ঘটনাবলী, পৃষ্ঠা ৮৭৯।', qs: EXAM },
+    { id: 'islam-sample', title: 'ইসলামী মৌলিক জ্ঞান (নমুনা)', date: '2026-11-15', duration: 5, tag: 'MCQ', builtin: true,
+      topic: 'ইসলামের স্তম্ভ, সালাত, কুরআন, নবী-রাসূল।', qs: SAMPLE }
+  ];
+
+  /* ---------- helpers ---------- */
+  var $ = function (id) { return document.getElementById(id); };
+  function bn(n) { return String(n).replace(/\d/g, function (d) { return '০১২৩৪৫৬৭৮৯'[d]; }); }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function todayISO() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function fmtDate(iso) { var p = (iso || '').split('-'); if (p.length < 3) return ''; return bn(+p[2]) + ' ' + MONTHS[+p[1] - 1] + ', ' + bn(p[0]); }
+  function monthKey(iso) { var p = (iso || '').split('-'); return MONTHS[+p[1] - 1] + ', ' + bn(p[0]); }
+  function fmtTime(s) { var m = Math.floor(s / 60), r = s % 60; return bn(pad(m)) + ':' + bn(pad(r)); }
+  function lsGet(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+  function h(tag, a, kids) {
+    var e = document.createElement(tag);
+    if (a) for (var k in a) {
+      var v = a[k];
+      if (k === 'class') e.className = v;
+      else if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k.slice(0, 2) === 'on') e[k] = v;
+      else e.setAttribute(k, v);
+    }
+    (kids || []).forEach(function (c) { if (c == null) return; e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return e;
+  }
+  var ICONS = {
+    calendar: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
+    archive: '<rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9M10 13h4"/>',
+    heart: '<path d="M12 20s-7.500-4.600-9-9.500C2 7 4.500 4.500 7.500 4.500c1.800 0 3.300 1 4.500 2.600 1.200-1.600 2.700-2.600 4.500-2.600 3 0 5.500 2.500 4.500 6C19.500 15.400 12 20 12 20z"/>',
+    clip: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM8.500 12h7M8.500 16h5"/>',
+    medal: '<circle cx="12" cy="9" r="5"/><path d="M9 13.500L7.500 21 12 18.500 16.500 21 15 13.500"/>',
+    xc: '<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
+    plus: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+    moon: '<path d="M20 14.500A8 8 0 019.500 4a8 8 0 1010.500 10.500z"/>',
+    back: '<path d="M15 5l-7 7 7 7"/>'
+  };
+  function ic(n) { return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[n] + '</svg>'; }
+
+  /* ---------- state ---------- */
+  var S = {
+    custom: lsGet('pm_custom', []),
+    attempts: lsGet('pm_attempts', []),
+    wrong: lsGet('pm_wrong', {}),
+    fav: lsGet('pm_fav', {}),
+    shuffle: lsGet('pm_shuffle', true)
+  };
+  var Q = null, viewEx = null;
+
+  function allExams() {
+    return S.custom.concat(BUILTIN).sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
+  }
+  function bestOf(ex) {
+    var b = null;
+    S.attempts.forEach(function (a) { if (a.id === ex.id && (!b || a.score > b.score)) b = a; });
+    return b;
+  }
+  function upcoming() { var t = todayISO(); return allExams().filter(function (e) { return e.date >= t && !bestOf(e); }); }
+  function count(o) { return Object.keys(o).length; }
+
+  /* ---------- theme ---------- */
+  function curDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  function toggleTheme() { var n = curDark() ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); lsSet('pm_theme', n); }
+  var savedTheme = lsGet('pm_theme', '');
+  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+  /* ---------- parser ---------- */
+  function letterIndex(s) {
+    s = (s || '').trim().charAt(0);
+    var i = 'কখগঘঙ'.indexOf(s);
+    if (i < 0) i = 'ABCDE'.indexOf(s.toUpperCase());
+    if (i < 0) i = '১২৩৪৫'.indexOf(s);
+    if (i < 0) i = '12345'.indexOf(s);
+    return i;
+  }
+  function parse(text) {
+    var out = [], errors = [];
+    text.replace(/\r/g, '').split(/\n\s*\n/).forEach(function (b) {
+      var lines = b.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
+      if (!lines.length) return;
+      var q = lines[0].replace(/^[\d১২৩৪৫৬৭৮৯০]+\s*[.)।]\s*/, '');
+      var opts = [], ans = -1, exp = '', m;
+      for (var i = 1; i < lines.length; i++) {
+        var l = lines[i];
+        if ((m = l.match(/^(?:উত্তর|answer|ans)\s*[:：]\s*(.+)$/i))) ans = letterIndex(m[1]);
+        else if ((m = l.match(/^(?:ব্যাখ্যা|explanation)\s*[:：]\s*(.+)$/i))) exp = m[1];
+        else if ((m = l.match(/^[কখগঘঙABCDEabcde]\s*[)।.]\s*(.+)$/))) opts.push(m[1]);
+      }
+      var n = bn(out.length + errors.length + 1);
+      if (opts.length < 2) errors.push('প্রশ্ন ' + n + ': কমপক্ষে ২টি অপশন লাগবে');
+      else if (ans < 0 || ans >= opts.length) errors.push('প্রশ্ন ' + n + ': "উত্তর: ক/খ/গ/ঘ" লাইনটি ঠিক নেই');
+      else out.push({ q: q, o: opts, a: ans, e: exp });
+    });
+    return { qs: out, errors: errors };
+  }
+
+  /* ---------- shell ---------- */
+  function shell(title, back, nodes) {
+    var wrap = h('div', { class: 'col' });
+    wrap.appendChild(h('div', { class: 'hd' }, [
+      back ? h('button', { class: 'ib', 'aria-label': 'পেছনে', html: ic('back'), onclick: function () { location.hash = back; } }) : h('span', { class: 'ib ph' }),
+      h('div', { class: 'hd-t', text: title }),
+      h('button', { class: 'ib', 'aria-label': 'থিম বদলান', html: ic('moon'), onclick: toggleTheme })
+    ]));
+    nodes.forEach(function (n) { wrap.appendChild(n); });
+    return wrap;
+  }
+  function empty(t) { return h('div', { class: 'empty', text: t }); }
+
+  function favBtn(src) {
+    var b = h('button', { class: 'fav', type: 'button', 'aria-label': 'ফেভারিট', html: ic('heart') });
+    function paint() { b.className = 'fav' + (S.fav[src.q] ? ' on' : ''); }
+    b.onclick = function () {
+      if (S.fav[src.q]) delete S.fav[src.q]; else S.fav[src.q] = { q: src.q, o: src.o, a: src.a, e: src.e || '' };
+      lsSet('pm_fav', S.fav); paint();
+    };
+    paint(); return b;
+  }
+  function qCard(q, n) {
+    var opts = h('div', { class: 'opts' });
+    q.o.forEach(function (t, i) {
+      var ok = i === q.a;
+      opts.appendChild(h('div', { class: 'opt static' + (ok ? ' correct' : '') }, [
+        h('span', { class: 'k', text: LETTERS[i] }), h('span', { class: 't', text: t }), h('span', { class: 'm', text: ok ? '✓' : '' })
+      ]));
+    });
+    var kids = [h('div', { class: 'qhead' }, [h('div', { class: 'qtext', text: (n ? bn(n) + '. ' : '') + q.q }), favBtn(q)]), opts];
+    if (q.e) kids.push(h('div', { class: 'muted', text: 'ব্যাখ্যা: ' + q.e }));
+    return h('div', { class: 'card' }, kids);
+  }
+
+  /* ---------- screens ---------- */
+  function sHome() {
+    var up = upcoming();
+    var banner = up.length
+      ? h('button', { class: 'banner', text: 'আসন্ন পরীক্ষা আছে: ' + bn(up.length) + 'টি। রুটিন দেখতে এখানে চাপুন।', onclick: function () { location.hash = 'routine'; } })
+      : h('div', { class: 'banner', text: 'চলমান কোনো পরীক্ষার রুটিন নেই। আগের প্রশ্নসমূহ দেখতে আর্কাইভ-এ যান।' });
+    var items = [
+      ['routine', 'রুটিন', 'calendar'], ['results', 'ফলাফল', 'check'],
+      ['archive', 'আর্কাইভ', 'archive'], ['favorite', 'ফেভারিট', 'heart'],
+      ['syllabus', 'সিলেবাস', 'clip'], ['merit', 'মেধা তালিকা', 'medal'],
+      ['wrong', 'ভুল ও উত্তরহীন', 'xc'], ['add', 'প্রশ্ন যোগ করুন', 'plus'],
+      ['guide', 'ব্যবহারবিধি ও নির্দেশিকা', 'clip']
+    ];
+    var menu = h('div', { class: 'menu' });
+    items.forEach(function (it) {
+      var kids = [h('span', { class: 'ico', html: ic(it[2]) }), h('span', { text: it[1] })];
+      if (it[0] === 'wrong' && count(S.wrong)) kids.push(h('span', { class: 'badge num', text: bn(count(S.wrong)) }));
+      if (it[0] === 'favorite' && count(S.fav)) kids.push(h('span', { class: 'badge num', text: bn(count(S.fav)) }));
+      menu.appendChild(h('button', { class: 'mi', type: 'button', style: it[0] === 'guide' ? 'grid-column:1/-1' : '', onclick: function () { location.hash = it[0]; } }, kids));
+    });
+    var avg = S.attempts.length ? Math.round(S.attempts.reduce(function (s, a) { return s + a.score / a.total * 100; }, 0) / S.attempts.length) : 0;
+    var stats = h('div', { class: 'card stats' }, [
+      h('div', {}, [h('b', { text: bn(S.attempts.length) }), h('span', { class: 'muted', text: 'পরীক্ষা দিয়েছেন' })]),
+      h('div', {}, [h('b', { text: bn(avg) + '%' }), h('span', { class: 'muted', text: 'গড় ফলাফল' })])
+    ]);
+    var cb = h('input', { type: 'checkbox', id: 'shufChk' });
+    cb.checked = !!S.shuffle;
+    cb.onchange = function () { S.shuffle = cb.checked; lsSet('pm_shuffle', S.shuffle); };
+    var setting = h('label', { class: 'check card', for: 'shufChk' }, [cb, h('span', { text: 'প্রশ্ন ও অপশন এলোমেলো করে দিন' })]);
+    return shell('', null, [
+      h('div', { class: 'hero' }, [h('div', { class: 'ar', lang: 'ar', dir: 'rtl', text: 'عِلْمِي' }), h('div', { class: 'latin', text: 'ILMI' }), h('div', { class: 'tag', text: 'শিক্ষক নিবন্ধন প্রস্তুতি' }), h('div', { class: 'sub', text: 'পড়ুন, পরীক্ষা দিন, নিজেকে যাচাই করুন' })]),
+      banner, menu, stats, setting,
+      h('div', { class: 'foot', text: 'Owner: Muhammad Shahidul Islam Shahed' })
+    ]);
+  }
+
+  function examCard(ex) {
+    var best = bestOf(ex);
+    var chips = h('div', { class: 'row' }, [
+      h('span', { class: 'muted', text: fmtDate(ex.date) }),
+      h('span', {}, [
+        best ? h('span', { class: 'chip done num', text: 'সম্পন্ন ' + bn(best.score) + '/' + bn(best.total) }) : h('span', { class: 'chip', text: 'নতুন' }),
+        ' ', h('span', { class: 'chip tag', text: ex.tag || 'MCQ' })
+      ])
+    ]);
+    var meta = h('div', { class: 'row muted' }, [
+      h('span', { text: 'মোট নম্বর: ' + bn(ex.qs.length) }),
+      h('span', { text: 'সময়: ' + (ex.duration ? bn(ex.duration) + ' মিনিট' : 'সীমাহীন') })
+    ]);
+    var kids = [chips, h('div', { class: 'ctitle', text: ex.title }), meta];
+    if (ex.topic) {
+      var tp = h('div', { class: 'muted clamp', text: 'টপিক: ' + ex.topic });
+      var more = h('button', { class: 'linkbtn', type: 'button', text: 'আরও দেখুন' });
+      more.onclick = function () { var c = tp.classList.toggle('clamp'); more.textContent = c ? 'আরও দেখুন' : 'কম দেখুন'; };
+      kids.push(tp, more);
+    }
+    kids.push(h('div', { class: 'btns' }, [
+      h('button', { class: 'btn', type: 'button', text: 'প্রশ্ন দেখুন', onclick: function () { viewEx = ex; location.hash = 'view'; } }),
+      h('button', { class: 'btn primary', type: 'button', text: 'পরীক্ষা দিন', onclick: function () { startQuiz(ex, ex.qs, ex.duration); } })
+    ]));
+    if (!ex.builtin) {
+      var del = h('button', { class: 'linkbtn', type: 'button', text: 'এই পরীক্ষা মুছুন' });
+      del.onclick = function () {
+        if (del.dataset.sure) {
+          S.custom = S.custom.filter(function (e) { return e.id !== ex.id; });
+          lsSet('pm_custom', S.custom); route();
+        } else { del.dataset.sure = '1'; del.textContent = 'নিশ্চিত? আবার চাপুন'; del.style.color = 'var(--bad)'; }
+      };
+      kids.push(del);
+    }
+    return h('div', { class: 'card' }, kids);
+  }
+
+  function sArchive() {
+    var search = h('input', { type: 'text', id: 'q', placeholder: 'খুঁজুন...', 'aria-label': 'খুঁজুন' });
+    var sel = h('select', { id: 'f', 'aria-label': 'ফিল্টার' }, [
+      h('option', { value: 'all', text: 'সব' }), h('option', { value: 'new', text: 'নতুন' }), h('option', { value: 'done', text: 'সম্পন্ন' })
+    ]);
+    var list = h('div', { class: 'col' });
+    function draw() {
+      list.innerHTML = '';
+      var term = search.value.trim().toLowerCase(), f = sel.value, lastM = '', n = 0;
+      allExams().forEach(function (ex) {
+        var done = !!bestOf(ex);
+        if (f === 'new' && done) return;
+        if (f === 'done' && !done) return;
+        if (term && (ex.title + ' ' + (ex.topic || '')).toLowerCase().indexOf(term) < 0) return;
+        var mk = monthKey(ex.date);
+        if (mk !== lastM) { list.appendChild(h('div', { class: 'divider', text: mk })); lastM = mk; }
+        list.appendChild(examCard(ex)); n++;
+      });
+      if (!n) list.appendChild(empty('কোনো পরীক্ষা পাওয়া যায়নি।'));
+    }
+    search.oninput = draw; sel.onchange = draw; draw();
+    return shell('আর্কাইভ', 'home', [h('div', { class: 'search' }, [search, sel]), list]);
+  }
+
+  function sView() {
+    var ex = viewEx;
+    var nodes = [h('div', { class: 'ctitle', text: ex.title }), h('p', { class: 'muted', text: 'মোট ' + bn(ex.qs.length) + 'টি প্রশ্ন। সঠিক উত্তর সবুজ রঙে দেখানো হয়েছে।' })];
+    ex.qs.forEach(function (q, i) { nodes.push(qCard(q, i + 1)); });
+    nodes.push(h('button', { class: 'btn primary', type: 'button', text: 'পরীক্ষা দিন', onclick: function () { startQuiz(ex, ex.qs, ex.duration); } }));
+    return shell('প্রশ্ন দেখুন', 'archive', nodes);
+  }
+
+  function sRoutine() {
+    var up = upcoming(), nodes = [];
+    if (!up.length) nodes.push(empty('চলমান কোনো পরীক্ষার রুটিন নেই। "প্রশ্ন যোগ করুন" থেকে ভবিষ্যতের তারিখ দিয়ে পরীক্ষা যোগ করলে এখানে দেখা যাবে।'));
+    up.slice().reverse().forEach(function (ex) { nodes.push(examCard(ex)); });
+    return shell('রুটিন', 'home', nodes);
+  }
+
+  function sResults() {
+    var nodes = [];
+    if (!S.attempts.length) nodes.push(empty('এখনো কোনো পরীক্ষা দেননি।'));
+    S.attempts.forEach(function (a) {
+      var pct = Math.round(a.score / a.total * 100), d = new Date(a.ts);
+      nodes.push(h('div', { class: 'card' }, [
+        h('div', { class: 'row' }, [
+          h('span', { class: 'muted', text: fmtDate(d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate())) }),
+          h('span', { class: 'chip ' + (pct >= 60 ? 'done' : ''), text: bn(pct) + '%' })
+        ]),
+        h('div', { class: 'ctitle', text: a.title }),
+        h('div', { class: 'row muted' }, [h('span', { text: 'সঠিক: ' + bn(a.score) + '/' + bn(a.total) }), h('span', { text: 'সময়: ' + fmtTime(a.secs) })])
+      ]));
+    });
+    return shell('ফলাফল', 'home', nodes);
+  }
+
+  function sFavorite() {
+    var keys = Object.keys(S.fav), nodes = [];
+    if (!keys.length) nodes.push(empty('কোনো ফেভারিট প্রশ্ন নেই। প্রশ্নের পাশের হার্ট চিহ্নে চাপ দিলে এখানে জমা হবে।'));
+    keys.forEach(function (k, i) { nodes.push(qCard(S.fav[k], i + 1)); });
+    return shell('ফেভারিট', 'home', nodes);
+  }
+
+  function sSyllabus() {
+    var nodes = [];
+    allExams().forEach(function (ex) {
+      nodes.push(h('div', { class: 'card' }, [h('div', { class: 'ctitle', text: ex.title }), h('p', { class: 'muted', text: ex.topic || 'টপিক দেওয়া নেই।' })]));
+    });
+    return shell('সিলেবাস', 'home', nodes);
+  }
+
+  function sMerit() {
+    var list = S.attempts.slice().sort(function (a, b) {
+      var pa = a.score / a.total, pb = b.score / b.total;
+      return pb - pa || a.secs - b.secs;
+    }).slice(0, 20);
+    var nodes = [h('p', { class: 'muted', text: 'এই ডিভাইসে আপনার দেওয়া পরীক্ষার সেরা ফলাফল। অন্যদের ফলাফল এখানে আসে না।' })];
+    if (!list.length) nodes.push(empty('এখনো কোনো পরীক্ষা দেননি।'));
+    list.forEach(function (a, i) {
+      nodes.push(h('div', { class: 'card li' }, [
+        h('div', { class: 'rank num', text: bn(i + 1) }),
+        h('div', { class: 'grow' }, [h('div', { style: 'font-weight:600', text: a.title }), h('div', { class: 'muted num', text: 'সময়: ' + fmtTime(a.secs) })]),
+        h('div', { class: 'num', style: 'font-weight:700', text: bn(a.score) + '/' + bn(a.total) })
+      ]));
+    });
+    return shell('মেধা তালিকা', 'home', nodes);
+  }
+
+  function sWrong() {
+    var keys = Object.keys(S.wrong), nodes = [];
+    if (!keys.length) nodes.push(empty('ভুল বা উত্তরহীন কোনো প্রশ্ন নেই। পরীক্ষায় যেগুলো ভুল হবে সেগুলো এখানে জমা হবে, পরে ঠিক উত্তর দিলে বাদ যাবে।'));
+    else {
+      nodes.push(h('button', {
+        class: 'btn primary', type: 'button', text: 'এগুলো অনুশীলন করুন (' + bn(keys.length) + 'টি)',
+        onclick: function () { startQuiz({ id: 'practice', title: 'ভুল প্রশ্নের অনুশীলন', practice: true }, keys.map(function (k) { return S.wrong[k]; }), 0); }
+      }));
+      keys.forEach(function (k, i) { nodes.push(qCard(S.wrong[k], i + 1)); });
+    }
+    return shell('ভুল ও উত্তরহীন', 'home', nodes);
+  }
+
+  function sAdd() {
+    var title = h('input', { type: 'text', id: 'nt', placeholder: 'যেমন: সাধারণ বিজ্ঞান পরীক্ষা - ১' });
+    var date = h('input', { type: 'date', id: 'nd' }); date.value = todayISO();
+    var dur = h('input', { type: 'number', id: 'ndur', min: '0', max: '300' }); dur.value = '15';
+    var topic = h('input', { type: 'text', id: 'ntp', placeholder: 'যেমন: পদার্থ, রসায়ন' });
+    var ta = h('textarea', { id: 'ntx', placeholder: 'প্রশ্ন, ক) খ) গ) ঘ) অপশন, তারপর উত্তর: ...' });
+    var st = h('p', { class: 'status', role: 'status' });
+    var save = h('button', { class: 'btn primary', type: 'button', text: 'যাচাই ও সংরক্ষণ' });
+    save.onclick = function () {
+      var t = title.value.trim();
+      if (!t) { st.className = 'status err'; st.textContent = 'পরীক্ষার নাম লিখুন।'; return; }
+      if (!ta.value.trim()) { st.className = 'status err'; st.textContent = 'প্রশ্ন পেস্ট করুন।'; return; }
+      var r = parse(ta.value);
+      if (r.errors.length) { st.className = 'status err'; st.textContent = r.errors.slice(0, 3).join(' | ') + (r.errors.length > 3 ? ' ...' : ''); return; }
+      S.custom.unshift({ id: 'c' + Date.now(), title: t, date: date.value || todayISO(), duration: Math.max(0, parseInt(dur.value, 10) || 0), topic: topic.value.trim(), tag: 'MCQ', qs: r.qs });
+      lsSet('pm_custom', S.custom);
+      location.hash = 'archive';
+    };
+    return shell('প্রশ্ন যোগ করুন', 'home', [
+      h('div', { class: 'card' }, [
+        h('label', { class: 'field', for: 'nt' }, ['পরীক্ষার নাম', title]),
+        h('div', { class: 'two' }, [h('label', { class: 'field', for: 'nd' }, ['তারিখ', date]), h('label', { class: 'field', for: 'ndur' }, ['সময় (মিনিট)', dur])]),
+        h('label', { class: 'field', for: 'ntp' }, ['টপিক (ঐচ্ছিক)', topic]),
+        h('p', { class: 'muted', text: 'প্রতিটি প্রশ্নের মাঝে একটি ফাঁকা লাইন রাখুন। ব্যাখ্যা ঐচ্ছিক।' }),
+        h('pre', { text: 'ইসলামের স্তম্ভ কয়টি?\nক) ৩টি\nখ) ৫টি\nগ) ৭টি\nঘ) ১০টি\nউত্তর: খ\nব্যাখ্যা: ইসলামের মূল স্তম্ভ পাঁচটি।' }),
+        h('label', { class: 'field', for: 'ntx' }, ['প্রশ্নগুলো এখানে বসান', ta]),
+        save, st,
+        h('p', { class: 'muted', text: 'টিপস: Claude-কে বইয়ের পৃষ্ঠা দিয়ে বলুন "এই ফরম্যাটে MCQ বানাও", তারপর এখানে পেস্ট করুন। যোগ করা পরীক্ষা এই ব্রাউজারেই থাকে।' })
+      ])
+    ]);
+  }
+
+  function sGuide() {
+    function sec(title, items) {
+      return h('div', { class: 'card gd' }, [h('div', { class: 'ctitle', text: title }), h('ol', {}, items.map(function (t) { return h('li', { text: t }); }))]);
+    }
+    return shell('ব্যবহারবিধি', 'home', [
+      sec('কীভাবে ব্যবহার করবেন', [
+        'হোম থেকে "আর্কাইভ" খুলুন। সেখানে সব পরীক্ষার কার্ড পাবেন।',
+        'কার্ডে "প্রশ্ন দেখুন" চাপলে সব প্রশ্ন ও সঠিক উত্তর (সবুজ) দেখা যাবে। পরীক্ষার আগে পড়ে নিতে পারেন।',
+        '"পরীক্ষা দিন" চাপলে টাইমার চালু হবে। অপশনে চাপ দিলে সঠিক হলে সবুজ ✓, ভুল হলে লাল ✗ আর সঠিক উত্তরটি সবুজ হয়ে যাবে।',
+        'সময় শেষ হলে পরীক্ষা নিজে থেকে বন্ধ হয়ে ফলাফল দেখাবে। যে প্রশ্নের উত্তর দেননি সেগুলো ভুল ধরা হবে।',
+        'প্রশ্নের পাশের হার্টে চাপ দিলে প্রশ্নটি "ফেভারিট"-এ জমা হবে।',
+        'ভুল বা বাদ পড়া প্রশ্ন "ভুল ও উত্তরহীন" মেনুতে জমা হয়। সেখান থেকে শুধু ওই প্রশ্নগুলো আবার অনুশীলন করুন।',
+        'ওপরের চাঁদের বোতামে চাপ দিলে ডার্ক মোড চালু হবে।'
+      ]),
+      sec('গ্রুপ স্টাডির জন্য', [
+        'সবাই একই লিংক খুলবে। প্রত্যেকের ফলাফল, ফেভারিট ও ভুলের তালিকা তার নিজের ফোন বা ব্রাউজারে থাকবে।',
+        'নতুন পরীক্ষা যোগ হলে লিংক একই থাকবে। পেজ রিফ্রেশ করলে সবাই নতুন পরীক্ষা পাবে।',
+        'প্রতিদিন নির্দিষ্ট সময়ে সবাই একসাথে একই পরীক্ষা দিন, তারপর স্কোর নিজেদের গ্রুপে শেয়ার করুন।'
+      ]),
+      sec('প্রতিদিন অ্যাপ কীভাবে বাড়াবেন', [
+        'দিন ১: বইয়ের একটি পৃষ্ঠার পরিষ্কার ছবি তুলে Claude-কে দিন। বলুন, "এই পৃষ্ঠা থেকে ৩০টি MCQ বানিয়ে ILMI অ্যাপে নতুন পরীক্ষা হিসেবে যোগ করো, সময় ১৫ মিনিট।"',
+        'Claude প্রশ্ন বানাবে। আপনি বইয়ের সঙ্গে উত্তরগুলো দ্রুত মিলিয়ে নিন, কোনো ভুল থাকলে বলুন।',
+        'Claude একই লিংকে পরীক্ষাটি যোগ করে অ্যাপ আপডেট করবে। সবাইকে পেজ রিফ্রেশ করতে বলুন।',
+        'দিন ২, ৩, ৪...: প্রতিদিন নতুন পৃষ্ঠা বা অধ্যায় থেকে একই নিয়মে একটি করে পরীক্ষা যোগ করুন। ৩০টি প্রশ্নের পরীক্ষায় ১৫ মিনিট রাখতে পারেন।',
+        'সপ্তাহের শেষ দিনে নতুন প্রশ্ন না দিয়ে সারা সপ্তাহের মিশ্র রিভিশন পরীক্ষা দিন, আর "ভুল ও উত্তরহীন" থেকে অনুশীলন করুন।',
+        'নিজে দ্রুত যোগ করতে চাইলে "প্রশ্ন যোগ করুন" ব্যবহার করুন। তবে সেটি শুধু আপনার নিজের ব্রাউজারে থাকবে, গ্রুপের অন্যরা দেখবে না।'
+      ]),
+      h('div', { class: 'foot', text: 'ILMI · Owner: Muhammad Shahidul Islam Shahed' })
+    ]);
+  }
+
+  /* ---------- quiz ---------- */
+  function rightText(p) { var t = ''; p.items.forEach(function (it) { if (it.c) t = it.t; }); return t; }
+  function stopTimer() { if (Q && Q.timerId) { clearInterval(Q.timerId); Q.timerId = null; } }
+
+  function startQuiz(ex, list, mins) {
+    stopTimer();
+    var sh = S.shuffle, qs = sh ? shuffle(list) : list.slice();
+    var pool = qs.map(function (q) {
+      var items = q.o.map(function (t, i) { return { t: t, c: i === q.a }; });
+      if (sh) items = shuffle(items);
+      return { q: q.q, items: items, e: q.e, src: q };
+    });
+    Q = { ex: ex, list: list, pool: pool, idx: 0, score: 0, results: [], picks: [], mins: mins || 0, startedAt: Date.now(), endAt: Date.now() + (mins || 0) * 60000, locked: false, final: null, timerId: null };
+    if (Q.mins) Q.timerId = setInterval(tick, 250);
+    if (location.hash === '#quiz') route(); else location.hash = 'quiz';
+  }
+  function tick() {
+    if (!Q || !Q.mins || Q.final) return;
+    var left = Math.max(0, Math.ceil((Q.endAt - Date.now()) / 1000));
+    if (Q.tEl) { Q.tEl.hidden = false; Q.tEl.textContent = 'সময়: ' + fmtTime(left); Q.tEl.className = 'timer' + (left <= 60 ? ' low' : ''); }
+    if (left <= 0) { stopTimer(); finish(true); }
+  }
+
+  function sQuiz() {
+    var qNo = h('span'), qSc = h('span'), timer = h('span', { class: 'timer', hidden: '' });
+    var fill = h('i'), bar = h('div', { class: 'bar' }, [fill]);
+    var qText = h('div', { class: 'qtext' }), headFav = h('div');
+    var opts = h('div', { class: 'opts' }), fb = h('div', { class: 'fb', hidden: '', role: 'status' }), ex = h('div', { class: 'muted', hidden: '' });
+    var next = h('button', { class: 'btn primary', type: 'button', disabled: '' });
+    var quit = h('button', { class: 'btn', type: 'button', text: 'বন্ধ করুন', onclick: function () { location.hash = 'archive'; } });
+    Q.tEl = timer;
+
+    function showQ() {
+      var p = Q.pool[Q.idx]; Q.locked = false;
+      qNo.textContent = 'প্রশ্ন ' + bn(Q.idx + 1) + ' / ' + bn(Q.pool.length);
+      qSc.textContent = 'সঠিক: ' + bn(Q.score);
+      fill.style.width = (Q.idx / Q.pool.length * 100) + '%';
+      qText.textContent = p.q;
+      headFav.innerHTML = ''; headFav.appendChild(favBtn(p.src));
+      fb.hidden = true; ex.hidden = true; next.disabled = true;
+      next.textContent = Q.idx === Q.pool.length - 1 ? 'ফলাফল দেখুন' : 'পরবর্তী প্রশ্ন';
+      opts.innerHTML = '';
+      p.items.forEach(function (it, i) {
+        var b = h('button', { class: 'opt', type: 'button' }, [h('span', { class: 'k', text: LETTERS[i] }), h('span', { class: 't', text: it.t }), h('span', { class: 'm', 'aria-hidden': 'true' })]);
+        b.onclick = function () { choose(i); };
+        opts.appendChild(b);
+      });
+    }
+    function choose(i) {
+      if (Q.locked) return; Q.locked = true;
+      var p = Q.pool[Q.idx], btns = opts.children, ok = p.items[i].c, ci = 0;
+      p.items.forEach(function (it, k) { if (it.c) ci = k; });
+      Q.results[Q.idx] = ok; Q.picks[Q.idx] = p.items[i].t;
+      for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
+      fb.hidden = false;
+      if (ok) {
+        Q.score++;
+        btns[i].classList.add('correct'); btns[i].children[2].textContent = '✓';
+        fb.className = 'fb good'; fb.textContent = '✓ সঠিক উত্তর!';
+      } else {
+        btns[i].classList.add('wrong'); btns[i].children[2].textContent = '✗';
+        btns[ci].classList.add('correct'); btns[ci].children[2].textContent = '✓';
+        fb.className = 'fb bad'; fb.textContent = '✗ ভুল। সঠিক উত্তর: ' + LETTERS[ci] + ') ' + p.items[ci].t;
+      }
+      if (p.e) { ex.hidden = false; ex.textContent = 'ব্যাখ্যা: ' + p.e; }
+      qSc.textContent = 'সঠিক: ' + bn(Q.score);
+      fill.style.width = ((Q.idx + 1) / Q.pool.length * 100) + '%';
+      next.disabled = false; next.focus();
+    }
+    next.onclick = function () { if (Q.idx < Q.pool.length - 1) { Q.idx++; showQ(); } else finish(false); };
+
+    var wrap = shell(Q.ex.title, null, [
+      h('div', { class: 'qtop' }, [qNo, timer, qSc]), bar,
+      h('div', { class: 'card' }, [h('div', { class: 'qhead' }, [qText, headFav]), opts, fb, ex]),
+      h('div', { class: 'btns' }, [quit, next])
+    ]);
+    showQ();
+    if (Q.mins) tick();
+    return wrap;
+  }
+
+  function finish(timedOut) {
+    stopTimer();
+    var wrong = [], answered = 0;
+    Q.pool.forEach(function (p, i) {
+      var key = p.src.q;
+      if (Q.results[i] === undefined) { wrong.push({ q: p.q, you: null, right: rightText(p) }); S.wrong[key] = { q: p.src.q, o: p.src.o, a: p.src.a, e: p.src.e || '' }; }
+      else {
+        answered++;
+        if (Q.results[i]) delete S.wrong[key];
+        else { wrong.push({ q: p.q, you: Q.picks[i], right: rightText(p) }); S.wrong[key] = { q: p.src.q, o: p.src.o, a: p.src.a, e: p.src.e || '' }; }
+      }
+    });
+    var secs = Math.round((Date.now() - Q.startedAt) / 1000);
+    if (Q.mins) secs = Math.min(secs, Q.mins * 60);
+    Q.final = { score: Q.score, total: Q.pool.length, answered: answered, secs: secs, timedOut: !!timedOut, wrong: wrong };
+    if (!Q.ex.practice) {
+      S.attempts.unshift({ id: Q.ex.id, title: Q.ex.title, ts: Date.now(), score: Q.score, total: Q.pool.length, secs: secs });
+      S.attempts = S.attempts.slice(0, 200); lsSet('pm_attempts', S.attempts);
+    }
+    lsSet('pm_wrong', S.wrong);
+    if (location.hash === '#result') route(); else location.hash = 'result';
+  }
+
+  function sResult() {
+    var f = Q.final, pct = Math.round(f.score / f.total * 100);
+    var msg = pct >= 80 ? 'চমৎকার! আলহামদুলিল্লাহ।' : pct >= 50 ? 'ভালো হয়েছে, আরেকটু অনুশীলন করুন।' : 'আবার পড়ে নিয়ে নতুন করে চেষ্টা করুন।';
+    var nodes = [h('div', { class: 'card' }, [
+      h('p', { class: 'muted', text: f.timedOut ? 'সময় শেষ! আপনার ফলাফল' : 'আপনার ফলাফল' }),
+      h('div', { class: 'score-big', text: bn(f.score) + ' / ' + bn(f.total) }),
+      h('p', { style: 'font-weight:600', text: bn(pct) + '% সঠিক। ' + msg }),
+      h('p', { class: 'muted', text: 'উত্তর দিয়েছেন ' + bn(f.answered) + '/' + bn(f.total) + 'টি। সময় লেগেছে ' + fmtTime(f.secs) + '।' })
+    ])];
+    if (f.wrong.length) {
+      var box = h('div', { class: 'card' }, [h('div', { class: 'ctitle', text: 'যেগুলো ভুল বা বাদ গেছে' })]);
+      f.wrong.forEach(function (w) {
+        box.appendChild(h('div', { class: 'rev' }, [
+          h('div', { style: 'font-weight:600', text: w.q }),
+          h('div', { class: 'you', text: w.you === null ? '— উত্তর দেওয়া হয়নি' : '✗ আপনার উত্তর: ' + w.you }),
+          h('div', { class: 'ans', text: '✓ সঠিক উত্তর: ' + w.right })
+        ]));
+      });
+      nodes.push(box);
+    }
+    var btns = h('div', { class: 'btns' }, [
+      h('button', { class: 'btn primary', type: 'button', text: 'আবার দিন', onclick: function () { startQuiz(Q.ex, Q.list, Q.mins); } })
+    ]);
+    if (f.wrong.length) btns.appendChild(h('button', {
+      class: 'btn', type: 'button', text: 'ভুলগুলো আবার',
+      onclick: function () { startQuiz({ id: 'practice', title: 'ভুল প্রশ্নের অনুশীলন', practice: true }, f.wrong.map(function (w) { return S.wrong[w.q] || null; }).filter(Boolean), 0); }
+    }));
+    nodes.push(btns);
+    nodes.push(h('button', { class: 'btn', type: 'button', text: 'আর্কাইভে ফিরুন', onclick: function () { location.hash = 'archive'; } }));
+    return shell('ফলাফল', 'archive', nodes);
+  }
+
+  /* ---------- router ---------- */
+  var SCREENS = { home: sHome, archive: sArchive, view: sView, routine: sRoutine, results: sResults, favorite: sFavorite, syllabus: sSyllabus, merit: sMerit, wrong: sWrong, add: sAdd, guide: sGuide, quiz: sQuiz, result: sResult };
+  function route() {
+    var name = (location.hash || '').replace('#', '') || 'home';
+    if (name !== 'quiz') stopTimer();
+    if (name === 'quiz' && (!Q || Q.final)) name = 'archive';
+    if (name === 'result' && (!Q || !Q.final)) name = 'home';
+    if (name === 'view' && !viewEx) name = 'archive';
+    if (!SCREENS[name]) name = 'home';
+    var app = $('app'); app.innerHTML = '';
+    app.appendChild(SCREENS[name]());
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script>
+</body>
+</html>
