@@ -165,6 +165,11 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
 .ar { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: 60px; line-height: 1.45; color: var(--gold); font-weight: 700; }
 .foot { text-align: center; color: var(--muted); font-size: 14px; padding-top: 6px; }
 .gd ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+.cdbox { text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 8px; color: var(--accent); }
+.chip.subj { align-self: flex-start; }
+.detail { background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 15px; line-height: 1.7; white-space: pre-line; }
+.srow { display: grid; grid-template-columns: 100px 1fr; gap: 10px; align-items: baseline; }
+.srow span { min-width: 0; overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
 </style>
 </head>
@@ -219,11 +224,529 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
     { q: 'বিশ্বের সর্বোচ্চ পর্বত শৃঙ্গের নাম কী?', o: ['কে-টু', 'কাঞ্চনজঙ্ঘা', 'মাউন্ট এভারেস্ট', 'ম্যাকিনলে'], a: 2 },
     { q: 'বিশ্বের গভীরতম খাত কোনটি?', o: ['মারিয়ানা ট্রেঞ্চ', 'পুয়ের্তো রিকো ট্রেঞ্চ', 'জাভা ট্রেঞ্চ', 'টোঙ্গা ট্রেঞ্চ'], a: 0, e: 'মারিয়ানা ট্রেঞ্চ প্রশান্ত মহাসাগরে অবস্থিত।' }
   ];
+  /* সাপ্তাহিক লাইভ পরীক্ষা ১ (১৯ নভেম্বর ২০২৬)। প্রশ্ন যোগ হলে এটি দেখা যাবে। */
+  var WEEKLY1 = [
+  {
+      "s": "অংক",
+      "q": "a + b = 10 এবং a − b = 4 হলে ab এর মান কত?",
+      "o": [
+        "১৮",
+        "২১",
+        "২৪",
+        "৪০"
+      ],
+      "a": 1,
+      "e": "(i)+(ii) করে 2a = 14, a = 7; (i)−(ii) করে 2b = 6, b = 3। তাই ab = 7 × 3 = 21।",
+      "d": "সমাধান: a + b = 10 ... (i)\na − b = 4 ... (ii)\n(i) + (ii): 2a = 14, ∴ a = 7\n(i) − (ii): 2b = 6, ∴ b = 3\nঅতএব ab = 7 × 3 = 21"
+    },
+    {
+      "s": "অংক",
+      "q": "x − y = 3 এবং xy = 10 হলে x + y এর মান কত?",
+      "o": [
+        "± ৫",
+        "± ৭",
+        "± ৯",
+        "± ১৩"
+      ],
+      "a": 1,
+      "e": "(x + y)² = (x − y)² + 4xy = 9 + 40 = 49, তাই x + y = ± 7।",
+      "d": "সূত্র: (x + y)² = (x − y)² + 4xy\n= 3² + 4 × 10 = 9 + 40 = 49\n∴ x + y = ± √49 = ± 7"
+    },
+    {
+      "s": "অংক",
+      "q": "4a² + 4ab + b² এর বর্গমূল কত?",
+      "o": [
+        "2a + b",
+        "2a − b",
+        "a + 2b",
+        "4a + b"
+      ],
+      "a": 0,
+      "e": "4a² + 4ab + b² = (2a)² + 2·2a·b + b² = (2a + b)²।",
+      "d": "সূত্র: a² + 2ab + b² = (a + b)²\n4a² + 4ab + b² = (2a)² + 2·(2a)·b + b² = (2a + b)²\n∴ বর্গমূল = 2a + b"
+    },
+    {
+      "s": "অংক",
+      "q": "x² + y² = 10 এবং xy = 3 হলে (x + y)² এর মান কত?",
+      "o": [
+        "১৩",
+        "১৬",
+        "১৯",
+        "২২"
+      ],
+      "a": 1,
+      "e": "(x + y)² = x² + y² + 2xy = 10 + 6 = 16।",
+      "d": "সূত্র: (x + y)² = x² + y² + 2xy\n= 10 + 2 × 3 = 16"
+    },
+    {
+      "s": "অংক",
+      "q": "a + 1/a = 4 হলে a² + 1/a² = কত?",
+      "o": [
+        "১২",
+        "১৪",
+        "১৬",
+        "১৮"
+      ],
+      "a": 1,
+      "e": "দুই পাশে বর্গ করলে a² + 2 + 1/a² = 16, তাই a² + 1/a² = 14।",
+      "d": "a + 1/a = 4\nবর্গ করে: (a + 1/a)² = 4²\nবা, a² + 2·a·(1/a) + 1/a² = 16\nবা, a² + 2 + 1/a² = 16\n∴ a² + 1/a² = 14"
+    },
+    {
+      "s": "অংক",
+      "q": "(3x + 2) এর বর্গ কত?",
+      "o": [
+        "9x² + 12x + 4",
+        "3x² + 12x + 4",
+        "9x² + 6x + 4",
+        "3x² + 6x + 4"
+      ],
+      "a": 0,
+      "e": "(3x + 2)² = (3x)² + 2·3x·2 + 2² = 9x² + 12x + 4।",
+      "d": "সূত্র: (a + b)² = a² + 2ab + b²\n(3x + 2)² = (3x)² + 2·3x·2 + 2²\n= 9x² + 12x + 4"
+    },
+    {
+      "s": "অংক",
+      "q": "25x² + px + 9 রাশিটি পূর্ণবর্গ হতে হলে p এর মান কত হবে?",
+      "o": [
+        "১৫",
+        "৩০",
+        "৪৫",
+        "৬০"
+      ],
+      "a": 1,
+      "e": "25x² = (5x)², 9 = 3²। তাই মাঝের পদ 2·5x·3 = 30x, অর্থাৎ p = 30।",
+      "d": "25x² + px + 9 = (5x)² + px + 3²\nপূর্ণবর্গ হতে হলে মাঝের পদ = 2 × 5x × 3 = 30x\n∴ p = 30\nতখন রাশিটি = (5x + 3)²"
+    },
+    {
+      "s": "অংক",
+      "q": "a, b ধনাত্মক, a² + b² = 20 এবং ab = 8 হলে a + b = কত?",
+      "o": [
+        "৪",
+        "৫",
+        "৬",
+        "৭"
+      ],
+      "a": 2,
+      "e": "(a + b)² = 20 + 2 × 8 = 36, তাই a + b = 6।",
+      "d": "সূত্র: (a + b)² = a² + b² + 2ab\n= 20 + 2 × 8 = 36\n∴ a + b = √36 = 6 (a, b ধনাত্মক বলে)"
+    },
+    {
+      "s": "অংক",
+      "q": "a − 1/a = 3 হলে a⁴ + 1/a⁴ = কত?",
+      "o": [
+        "১১৩",
+        "১১৭",
+        "১১৯",
+        "১২১"
+      ],
+      "a": 2,
+      "e": "প্রথমে a² + 1/a² = 9 + 2 = 11। তারপর a⁴ + 1/a⁴ = 11² − 2 = 119।",
+      "d": "a − 1/a = 3\nবর্গ করে: a² − 2 + 1/a² = 9, ∴ a² + 1/a² = 11\nআবার বর্গ করে: a⁴ + 2 + 1/a⁴ = 121\n∴ a⁴ + 1/a⁴ = 121 − 2 = 119"
+    },
+    {
+      "s": "অংক",
+      "q": "x + y = 9 এবং xy = 14 হলে (x − y)² এর মান কত?",
+      "o": [
+        "১৫",
+        "২০",
+        "২৫",
+        "৩০"
+      ],
+      "a": 2,
+      "e": "(x − y)² = (x + y)² − 4xy = 81 − 56 = 25।",
+      "d": "সূত্র: (x − y)² = (x + y)² − 4xy\n= 9² − 4 × 14 = 81 − 56 = 25"
+    },
+  {
+      "s": "বাংলা",
+      "q": "\"অগ্নি\" শব্দের সমার্থক শব্দ কোনটি?",
+      "o": [
+        "সমীর",
+        "অর্ণব",
+        "অনল",
+        "রজনী"
+      ],
+      "a": 2,
+      "e": "অগ্নির সমার্থক শব্দ: অনল, পাবক, দহন, বহ্নি, হুতাশন।",
+      "d": "অগ্নি = অনল, পাবক, দহন, বহ্নি, হুতাশন, বৈশ্বানর, আগুন, সর্বভুক, শিখা, হোমাগ্নি, কৃশানু, সর্বশুচি, বিভাবসু, বায়ুসখা।\nসমীর = বায়ু, অর্ণব = সমুদ্র, রজনী = রাত্রি।"
+    },
+    {
+      "s": "বাংলা",
+      "q": "\"পৃথিবী\" শব্দের সমার্থক শব্দ কোনটি?",
+      "o": [
+        "তরু",
+        "বসুন্ধরা",
+        "অহি",
+        "শর্বরী"
+      ],
+      "a": 1,
+      "e": "পৃথিবীর সমার্থক শব্দ: ধরা, ধরণী, বসুধা, বসুন্ধরা, মেদিনী।",
+      "d": "পৃথিবী = অবনি, অদিতি, অখিল, ক্ষিতি, উর্বী, ধরা, ধরণী, ধরিত্রী, বসুধা, বসুন্ধরা, বসুমতী, ভূ, ভূমণ্ডল, মহী, মেদিনী, জগৎ, মর্ত্যলোক, ব্রহ্মাণ্ড, ভুবন, ভূলোক, মরলোক।\nতরু = বৃক্ষ, অহি = সর্প, শর্বরী = রাত্রি।"
+    },
+    {
+      "s": "বাংলা",
+      "q": "\"চন্দ্র\" শব্দের সমার্থক শব্দ কোনটি?",
+      "o": [
+        "ভাস্কর",
+        "ময়ূর",
+        "সুধাংশু",
+        "পবন"
+      ],
+      "a": 2,
+      "e": "চন্দ্রের সমার্থক শব্দ: চাঁদ, সুধাকর, সুধাংশু, হিমাংশু, নিশাকর।",
+      "d": "চন্দ্র = চাঁদ, সুধাকর, হিমকর, সুধাংশু, হিমাংশু, সিতাংশু, শীতাংশু, শীতকর, নিশাকর, নিশাপতি, নিশাকান্ত, সুধানিধি, কলানিধি, কলানাথ, কলাভৃৎ, কুমুদনাথ, কুমুদিনীনাথ, রজনিকান্ত, রজনিনাথ, দ্বিজরাজ, দ্বিজপতি, মৃগাঙ্ক, ইন্দু, চন্দ্রমা।\nভাস্কর = সূর্য, পবন = বায়ু।"
+    },
+    {
+      "s": "বাংলা",
+      "q": "\"সূর্য\" শব্দের সমার্থক শব্দ কোনটি?",
+      "o": [
+        "হিমাংশু",
+        "জলধি",
+        "কলাপী",
+        "দিবাকর"
+      ],
+      "a": 3,
+      "e": "সূর্যের সমার্থক শব্দ: রবি, ভানু, ভাস্কর, দিবাকর, তপন, আদিত্য।",
+      "d": "সূর্য = অর্ক, অরুণ, রবি, আফতাব, আদিত্য, তপন, দিনেশ, সবিতা, ভানু, ভাস্কর, দিবাকর, প্রভাকর, বিভাকর, বিভাবসু, দিবাবসু, দিনমণি, দিননাথ, অংশুমালী, কিরণমালী, ময়ূখমালী, মার্তণ্ড, অর্যমা, পূষা, সুর, বিবস্বান, মিহির।\nহিমাংশু = চন্দ্র, জলধি = সমুদ্র, কলাপী = ময়ূর।"
+    },
+    {
+      "s": "বাংলা",
+      "q": "\"সমুদ্র\" শব্দের সমার্থক শব্দ কোনটি?",
+      "o": [
+        "পাবক",
+        "রত্নাকর",
+        "ভুজঙ্গ",
+        "তপন"
+      ],
+      "a": 1,
+      "e": "সমুদ্রের সমার্থক শব্দ: সাগর, সিন্ধু, অর্ণব, রত্নাকর, জলধি, উদধি।",
+      "d": "সমুদ্র = সাগর, সিন্ধু, অর্ণব, রত্নাকর, জলধি, উদধি, পয়োধি, বারিধি, বারীশ, বারীন্দ্র, অম্বুধি, অম্বুনিধি, জলনিধি, পয়োনিধি, তোয়নিধি, বারিনিধি, পাথার, জলধর, পারাবার, নীলাম্বু, নদীকান্ত।\nপাবক = অগ্নি, ভুজঙ্গ = সর্প, তপন = সূর্য।"
+    },
+  {
+      "s": "ইংরেজি",
+      "q": "It is high time we ____ our bad habits.",
+      "o": [
+        "change",
+        "changed",
+        "will change",
+        "have changed"
+      ],
+      "a": 1,
+      "e": "\"It is high time\" এর পরে Past Simple বসে। তাই changed।",
+      "d": "নিয়ম: It is high time + subject + Past Simple (V2)।\nউদাহরণ: It is high time he went to bed।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "It is two years since she ____ to this city.",
+      "o": [
+        "has come",
+        "comes",
+        "came",
+        "coming"
+      ],
+      "a": 2,
+      "e": "Since-এর আগে Present অংশ থাকলে since-এর পরের clause-এ Past Simple হয়।",
+      "d": "নিয়ম: It is + সময় + since + subject + Past Simple।\nউদাহরণ: It is many years since I met you।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "We are looking forward to ____ you.",
+      "o": [
+        "meet",
+        "meeting",
+        "met",
+        "meets"
+      ],
+      "a": 1,
+      "e": "Look forward to-এর \"to\" এখানে preposition, তাই পরে verb+ing বসে।",
+      "d": "নিয়ম: look forward to + V-ing।\nউদাহরণ: I look forward to receiving your letter।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "You had better ____ a doctor today.",
+      "o": [
+        "to see",
+        "saw",
+        "seen",
+        "see"
+      ],
+      "a": 3,
+      "e": "Had better-এর পরে verb-এর base form (V1) বসে, to বসে না।",
+      "d": "নিয়ম: had better + V1।\nউদাহরণ: You had better go there।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "Walk quickly lest you ____ the bus.",
+      "o": [
+        "would miss",
+        "missed",
+        "should miss",
+        "will miss"
+      ],
+      "a": 2,
+      "e": "Lest-এর পরে should বসে।",
+      "d": "নিয়ম: lest + subject + should + V1।\nউদাহরণ: Walk fast lest you should miss the train।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "If I had enough money, I ____ a car.",
+      "o": [
+        "will buy",
+        "would buy",
+        "would bought",
+        "would have bought"
+      ],
+      "a": 1,
+      "e": "If-এর পরে Past হলে main clause-এ would + V1 বসে (Type 2 Conditional)।",
+      "d": "নিয়ম: If + Past Simple, subject + would + V1।\nউদাহরণ: If you wanted, I would help you।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "He cannot help ____ at the joke.",
+      "o": [
+        "laugh",
+        "to laugh",
+        "laughing",
+        "laughed"
+      ],
+      "a": 2,
+      "e": "Cannot help-এর পরে verb+ing বসে (না হেসে পারে না)।",
+      "d": "নিয়ম: cannot help + V-ing।\nউদাহরণ: He couldn't help writing the letter।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "The teacher made the boy ____ the lesson again.",
+      "o": [
+        "reading",
+        "to read",
+        "read",
+        "reads"
+      ],
+      "a": 2,
+      "e": "Make + object-এর পরে verb-এর base form বসে, to বসে না।",
+      "d": "নিয়ম: make/let/see + object + V1।\nউদাহরণ: The teacher made the children read the book।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "While we ____ in the garden, it started to rain.",
+      "o": [
+        "played",
+        "were playing",
+        "are playing",
+        "play"
+      ],
+      "a": 1,
+      "e": "While-এর সঙ্গে একটি কাজ চলমান থাকাকালীন আরেকটি ঘটলে চলমান কাজে Past Continuous বসে।",
+      "d": "নিয়ম: While + subject + was/were + V-ing, subject + Past Simple।\nউদাহরণ: While I was playing in the field, I saw a dead cow।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "The captain along with his players ____ waiting for the bus.",
+      "o": [
+        "are",
+        "is",
+        "were",
+        "have"
+      ],
+      "a": 1,
+      "e": "Along with / as well as-এর আগের subject অনুযায়ী verb হয়। Captain একবচন, তাই is।",
+      "d": "নিয়ম: Subject + along with/as well as + অন্য noun — verb হবে প্রথম subject অনুযায়ী।\nউদাহরণ: The principal along with his students has been planting trees।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "He was accused ____ theft.",
+      "o": [
+        "for",
+        "of",
+        "with",
+        "by"
+      ],
+      "a": 1,
+      "e": "Accused of = অভিযুক্ত।",
+      "d": "Accused of (অভিযুক্ত) — The man was accused of theft।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "She is absorbed ____ deep study.",
+      "o": [
+        "at",
+        "on",
+        "in",
+        "with"
+      ],
+      "a": 2,
+      "e": "Absorbed in = নিমগ্ন।",
+      "d": "Absorbed in (নিমগ্ন) — She is absorbed in deep study।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "Everybody should abstain ____ drug addiction.",
+      "o": [
+        "to",
+        "of",
+        "from",
+        "at"
+      ],
+      "a": 2,
+      "e": "Abstain from = বিরত থাকা।",
+      "d": "Abstain from (বিরত থাকা) — Everybody should try to abstain from drug addiction।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "He applied ____ the principal for free admission.",
+      "o": [
+        "for",
+        "to",
+        "with",
+        "at"
+      ],
+      "a": 1,
+      "e": "Apply to = কারো কাছে আবেদন করা। কোনো বিষয়ের জন্য আবেদন হলে apply for।",
+      "d": "Apply to (কারো কাছে আবেদন করা) আর Apply for (কোনো বিষয়ে আবেদন করা) আলাদা।\nউদাহরণ: He applied to the principal for free admission।"
+    },
+    {
+      "s": "ইংরেজি",
+      "q": "Kamal learnt the poem ____ heart.",
+      "o": [
+        "with",
+        "in",
+        "at",
+        "by"
+      ],
+      "a": 3,
+      "e": "By heart = মুখস্থ।",
+      "d": "By heart (মুখস্থ) — Kamal learnt the poem by heart।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "বিশ্বের ক্ষুদ্রতম মহাসাগর কোনটি?",
+      "o": [
+        "ভারত মহাসাগর",
+        "আটলান্টিক মহাসাগর",
+        "উত্তর মহাসাগর",
+        "দক্ষিণ মহাসাগর"
+      ],
+      "a": 2,
+      "d": "উত্তর মহাসাগর (আর্কটিক মহাসাগর) বিশ্বের ক্ষুদ্রতম ও অগভীরতম মহাসাগর। এটি উত্তর মেরু অঞ্চলে অবস্থিত এবং বছরের বড় অংশ বরফে ঢাকা থাকে। বিশ্বের বৃহত্তম মহাসাগর প্রশান্ত মহাসাগর।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "বিশ্বের মোট মহাসাগর কয়টি?",
+      "o": [
+        "৩টি",
+        "৫টি",
+        "৪টি",
+        "৭টি"
+      ],
+      "a": 1,
+      "d": "মহাসাগর ৫টি: প্রশান্ত, আটলান্টিক, ভারত, দক্ষিণ (অ্যান্টার্কটিক) ও উত্তর (আর্কটিক)। মহাদেশ ৭টি, মহাসাগর ৫টি, দুটির সংখ্যা গুলিয়ে ফেলবেন না।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "বিশ্বের বৃহত্তম হ্রদ কোনটি?",
+      "o": [
+        "বৈকাল হ্রদ",
+        "কাস্পিয়ান সাগর",
+        "সুপিরিয়র হ্রদ",
+        "ভিক্টোরিয়া হ্রদ"
+      ],
+      "a": 1,
+      "d": "কাস্পিয়ান সাগর আসলে একটি বিশাল লবণাক্ত হ্রদ, আয়তন প্রায় ৩,৭১,০০০ বর্গকিলোমিটার। এর তীরে রাশিয়া, কাজাখস্তান, তুর্কমেনিস্তান, ইরান ও আজারবাইজান। বইয়ে এটি এশিয়ায় অবস্থিত বলা হয়েছে। গভীরতম হ্রদ বৈকাল (রাশিয়া)।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "ভিক্টোরিয়া জলপ্রপাত কোথায় অবস্থিত?",
+      "o": [
+        "যুক্তরাষ্ট্র ও কানাডা",
+        "ভেনিজুয়েলা",
+        "জাম্বিয়া ও জিম্বাবুয়ে",
+        "ব্রাজিল ও আর্জেন্টিনা"
+      ],
+      "a": 2,
+      "d": "ভিক্টোরিয়া জলপ্রপাত আফ্রিকার জাম্বেজি নদীতে, জাম্বিয়া ও জিম্বাবুয়ের সীমান্তে। নায়াগ্রা জলপ্রপাত যুক্তরাষ্ট্র ও কানাডার সীমান্তে এবং বিশ্বের উচ্চতম জলপ্রপাত অ্যাঞ্জেলস ফলস ভেনিজুয়েলায়।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "বিশ্বের সর্বোচ্চ পর্বতমালার নাম কী?",
+      "o": [
+        "আল্পস",
+        "হিমালয়",
+        "আন্দিজ",
+        "রকি"
+      ],
+      "a": 1,
+      "d": "হিমালয় পর্বতমালা বিশ্বের সর্বোচ্চ। এতেই বিশ্বের সর্বোচ্চ শৃঙ্গ মাউন্ট এভারেস্ট অবস্থিত। এটি নেপাল, ভারত, চীন, ভুটান ও পাকিস্তান জুড়ে বিস্তৃত।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "বিশ্বের বৃহত্তম উষ্ণ মরুভূমি কোনটি?",
+      "o": [
+        "গোবি",
+        "কালাহারি",
+        "আরব",
+        "সাহারা"
+      ],
+      "a": 3,
+      "d": "সাহারা মরুভূমি উত্তর আফ্রিকায় অবস্থিত, আয়তন প্রায় ৯২ লক্ষ বর্গকিলোমিটার। বইয়ে এটিকে বিশ্বের বৃহত্তম মরুভূমি বলা হয়েছে। গোবি মরুভূমি এশিয়ায় (চীন ও মঙ্গোলিয়া)।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "এশিয়া থেকে ইউরোপকে পৃথক করেছে কোন প্রণালি?",
+      "o": [
+        "জিব্রাল্টার প্রণালি",
+        "বসফরাস প্রণালি",
+        "হরমুজ প্রণালি",
+        "মালাক্কা প্রণালি"
+      ],
+      "a": 1,
+      "d": "বসফরাস প্রণালি তুরস্কের ইস্তাম্বুল শহরের মধ্য দিয়ে গেছে। এটি কৃষ্ণ সাগর ও মর্মর সাগরকে যুক্ত করে এবং এশিয়া ও ইউরোপকে আলাদা করেছে। তাই ইস্তাম্বুল একসঙ্গে দুই মহাদেশে পড়ে।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "এশিয়া থেকে আমেরিকাকে পৃথক করেছে কোন প্রণালি?",
+      "o": [
+        "বসফরাস প্রণালি",
+        "জিব্রাল্টার প্রণালি",
+        "মালাক্কা প্রণালি",
+        "বেরিং প্রণালি"
+      ],
+      "a": 3,
+      "d": "বেরিং প্রণালি রাশিয়ার সাইবেরিয়া ও যুক্তরাষ্ট্রের আলাস্কার মাঝে অবস্থিত। এটি উত্তর মহাসাগর ও প্রশান্ত মহাসাগরকে যুক্ত করেছে।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "এশিয়া থেকে আফ্রিকাকে পৃথক করেছে কোন প্রণালি?",
+      "o": [
+        "বাব এল মানদেব প্রণালি",
+        "বেরিং প্রণালি",
+        "জিব্রাল্টার প্রণালি",
+        "হরমুজ প্রণালি"
+      ],
+      "a": 0,
+      "d": "বাব এল মানদেব প্রণালি লোহিত সাগর ও এডেন উপসাগরকে যুক্ত করেছে। এর একপাশে এশিয়ার ইয়েমেন, অন্যপাশে আফ্রিকার জিবুতি ও ইরিত্রিয়া। সুয়েজ খালও এই দুই মহাদেশের সীমানা, কিন্তু সেটি প্রণালি নয়, খাল।"
+    },
+    {
+      "s": "সাধারণ জ্ঞান",
+      "q": "ইউরোপ থেকে আফ্রিকাকে পৃথক করেছে কোন প্রণালি?",
+      "o": [
+        "মালাক্কা প্রণালি",
+        "জিব্রাল্টার প্রণালি",
+        "বসফরাস প্রণালি",
+        "বেরিং প্রণালি"
+      ],
+      "a": 1,
+      "d": "জিব্রাল্টার প্রণালি স্পেন (ইউরোপ) ও মরক্কোর (আফ্রিকা) মাঝে অবস্থিত। এটি আটলান্টিক মহাসাগর ও ভূমধ্যসাগরকে যুক্ত করেছে।"
+    }
+  ];
   var BUILTIN = [
     { id: 'world-1', title: 'বিশ্ব পরিচিতি', date: '2026-11-16', duration: 15, tag: 'MCQ', builtin: true,
       topic: 'মহাদেশ, দেশ, নগর রাষ্ট্র, মহাসাগর, নদী, হ্রদ, জলপ্রপাত, দ্বীপ, পর্বত ও গভীরতম খাত। উৎস: শিক্ষক নিবন্ধন Analysis, আন্তর্জাতিক বিষয় ও চলতি ঘটনাবলী, পৃষ্ঠা ৮৭৯।', qs: EXAM },
     { id: 'islam-sample', title: 'ইসলামী মৌলিক জ্ঞান (নমুনা)', date: '2026-11-15', duration: 5, tag: 'MCQ', builtin: true,
-      topic: 'ইসলামের স্তম্ভ, সালাত, কুরআন, নবী-রাসূল।', qs: SAMPLE }
+      topic: 'ইসলামের স্তম্ভ, সালাত, কুরআন, নবী-রাসূল।', qs: SAMPLE },
+    { id: 'weekly-1', title: 'সাপ্তাহিক পরীক্ষা - ১', date: '2026-11-19', duration: 30, tag: 'MCQ', builtin: true,
+      live: { start: Date.parse('2026-11-19T16:20:00+06:00'), joinMin: 30 }, ready: true,
+      topic: 'অংক: বীজগণিত ১ম অধ্যায়। ইংরেজি: Right form of verbs ও Preposition। বাংলা: সমার্থক শব্দ। সাধারণ জ্ঞান: আন্তর্জাতিক।',
+      subjects: [{ n: 'অংক', t: 'বীজগণিত ১ম অধ্যায়' }, { n: 'ইংরেজি', t: 'Right form of verbs ও Preposition' }, { n: 'বাংলা', t: 'সমার্থক শব্দ' }, { n: 'সাধারণ জ্ঞান', t: 'আন্তর্জাতিক' }],
+      qs: WEEKLY1 }
   ];
 
   /* ---------- helpers ---------- */
@@ -279,16 +802,45 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
   };
   var Q = null, viewEx = null;
 
-  function allExams() {
+  function allExamsRaw() {
     return S.custom.concat(BUILTIN).sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
   }
+  function hasQ(e) { return !!(e.qs && e.qs.length) && e.ready !== false; }
+  function allExams() { return allExamsRaw().filter(hasQ); }
   function bestOf(ex) {
     var b = null;
     S.attempts.forEach(function (a) { if (a.id === ex.id && (!b || a.score > b.score)) b = a; });
     return b;
   }
-  function upcoming() { var t = todayISO(); return allExams().filter(function (e) { return e.date >= t && !bestOf(e); }); }
+  function upcoming() { var t = todayISO(); return allExamsRaw().filter(function (e) { if (bestOf(e)) return false; if (e.live) return liveState(e) !== 'after'; return e.date >= t; }); }
   function count(o) { return Object.keys(o).length; }
+  function now() { return Date.now() + (window.__skew || 0); }
+  function fmtWhen(ms) {
+    var DAYS = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+    var d = new Date(ms + 6 * 3600000), hr = d.getUTCHours(), mi = d.getUTCMinutes();
+    var per = hr < 4 ? 'রাত' : hr < 12 ? 'সকাল' : hr < 15 ? 'দুপুর' : hr < 18 ? 'বিকাল' : hr < 20 ? 'সন্ধ্যা' : 'রাত';
+    return DAYS[d.getUTCDay()] + ', ' + bn(d.getUTCDate()) + ' ' + MONTHS[d.getUTCMonth()] + ' ' + bn(d.getUTCFullYear()) + ', ' + per + ' ' + bn(hr % 12 || 12) + ':' + bn(pad(mi));
+  }
+  function liveState(ex) {
+    if (!ex || !ex.live) return null;
+    var t = now(), st = ex.live.start, en = st + ex.live.joinMin * 60000;
+    return t < st ? 'before' : t <= en ? 'live' : 'after';
+  }
+  function fmtCountdown(ms) {
+    var sec = Math.max(0, Math.floor(ms / 1000)), d = Math.floor(sec / 86400); sec %= 86400;
+    var hh = Math.floor(sec / 3600); sec %= 3600;
+    var mm = Math.floor(sec / 60); sec %= 60;
+    return (d ? bn(d) + ' দিন ' : '') + bn(pad(hh)) + ':' + bn(pad(mm)) + ':' + bn(pad(sec));
+  }
+  function cdBox(t, pre) { return h('div', { class: 'cd cdbox', 'data-t': t, 'data-pre': pre, text: pre + fmtCountdown(t - now()) }); }
+  function bannerFor(up) {
+    var go = function () { location.hash = 'archive'; };
+    var lv = up.filter(function (e) { return e.live && liveState(e) === 'live'; })[0];
+    if (lv) return h('button', { class: 'banner', text: 'লাইভ পরীক্ষা চলছে: ' + lv.title + '। এখনই যোগ দিন।', onclick: go });
+    var nx = up.filter(function (e) { return e.live; }).sort(function (a, b) { return a.live.start - b.live.start; })[0];
+    if (nx) { var pre = 'আগামী লাইভ পরীক্ষা (' + nx.title + ') শুরু হতে বাকি: '; return h('button', { class: 'banner cd', 'data-t': nx.live.start, 'data-pre': pre, text: pre + fmtCountdown(nx.live.start - now()), onclick: go }); }
+    return h('button', { class: 'banner', text: 'আসন্ন পরীক্ষা আছে: ' + bn(up.length) + 'টি। রুটিন দেখতে এখানে চাপুন।', onclick: function () { location.hash = 'routine'; } });
+  }
 
   /* ---------- theme ---------- */
   function curDark() {
@@ -315,17 +867,18 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
       var lines = b.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
       if (!lines.length) return;
       var q = lines[0].replace(/^[\d১২৩৪৫৬৭৮৯০]+\s*[.)।]\s*/, '');
-      var opts = [], ans = -1, exp = '', m;
+      var opts = [], ans = -1, exp = '', det = '', m;
       for (var i = 1; i < lines.length; i++) {
         var l = lines[i];
         if ((m = l.match(/^(?:উত্তর|answer|ans)\s*[:：]\s*(.+)$/i))) ans = letterIndex(m[1]);
+        else if ((m = l.match(/^(?:বিস্তারিত|details?)\s*[:：]\s*(.+)$/i))) det = m[1];
         else if ((m = l.match(/^(?:ব্যাখ্যা|explanation)\s*[:：]\s*(.+)$/i))) exp = m[1];
         else if ((m = l.match(/^[কখগঘঙABCDEabcde]\s*[)।.]\s*(.+)$/))) opts.push(m[1]);
       }
       var n = bn(out.length + errors.length + 1);
       if (opts.length < 2) errors.push('প্রশ্ন ' + n + ': কমপক্ষে ২টি অপশন লাগবে');
       else if (ans < 0 || ans >= opts.length) errors.push('প্রশ্ন ' + n + ': "উত্তর: ক/খ/গ/ঘ" লাইনটি ঠিক নেই');
-      else out.push({ q: q, o: opts, a: ans, e: exp });
+      else out.push({ q: q, o: opts, a: ans, e: exp, d: det });
     });
     return { qs: out, errors: errors };
   }
@@ -343,11 +896,17 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
   }
   function empty(t) { return h('div', { class: 'empty', text: t }); }
 
+  function detailBlock(text) {
+    var box = h('div', { class: 'detail', hidden: '', text: text });
+    var b = h('button', { class: 'linkbtn', type: 'button', text: 'বিস্তারিত দেখুন' });
+    b.onclick = function () { box.hidden = !box.hidden; b.textContent = box.hidden ? 'বিস্তারিত দেখুন' : 'বিস্তারিত লুকান'; };
+    return h('div', { class: 'col', style: 'gap:6px; align-items:flex-start' }, [b, box]);
+  }
   function favBtn(src) {
     var b = h('button', { class: 'fav', type: 'button', 'aria-label': 'ফেভারিট', html: ic('heart') });
     function paint() { b.className = 'fav' + (S.fav[src.q] ? ' on' : ''); }
     b.onclick = function () {
-      if (S.fav[src.q]) delete S.fav[src.q]; else S.fav[src.q] = { q: src.q, o: src.o, a: src.a, e: src.e || '' };
+      if (S.fav[src.q]) delete S.fav[src.q]; else S.fav[src.q] = { q: src.q, o: src.o, a: src.a, e: src.e || '', d: src.d || '', s: src.s || '' };
       lsSet('pm_fav', S.fav); paint();
     };
     paint(); return b;
@@ -362,6 +921,7 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
     });
     var kids = [h('div', { class: 'qhead' }, [h('div', { class: 'qtext', text: (n ? bn(n) + '. ' : '') + q.q }), favBtn(q)]), opts];
     if (q.e) kids.push(h('div', { class: 'muted', text: 'ব্যাখ্যা: ' + q.e }));
+    if (q.d) kids.push(detailBlock(q.d));
     return h('div', { class: 'card' }, kids);
   }
 
@@ -369,7 +929,7 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
   function sHome() {
     var up = upcoming();
     var banner = up.length
-      ? h('button', { class: 'banner', text: 'আসন্ন পরীক্ষা আছে: ' + bn(up.length) + 'টি। রুটিন দেখতে এখানে চাপুন।', onclick: function () { location.hash = 'routine'; } })
+      ? bannerFor(up)
       : h('div', { class: 'banner', text: 'চলমান কোনো পরীক্ষার রুটিন নেই। আগের প্রশ্নসমূহ দেখতে আর্কাইভ-এ যান।' });
     var items = [
       ['routine', 'রুটিন', 'calendar'], ['results', 'ফলাফল', 'check'],
@@ -402,29 +962,40 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
   }
 
   function examCard(ex) {
-    var best = bestOf(ex);
+    var best = bestOf(ex), ls = liveState(ex);
     var chips = h('div', { class: 'row' }, [
-      h('span', { class: 'muted', text: fmtDate(ex.date) }),
+      h('span', { class: 'muted', text: ex.live ? fmtWhen(ex.live.start) : fmtDate(ex.date) }),
       h('span', {}, [
         best ? h('span', { class: 'chip done num', text: 'সম্পন্ন ' + bn(best.score) + '/' + bn(best.total) }) : h('span', { class: 'chip', text: 'নতুন' }),
-        ' ', h('span', { class: 'chip tag', text: ex.tag || 'MCQ' })
+        ' ', h('span', { class: 'chip tag', text: ls === 'live' ? 'লাইভ চলছে' : ex.live ? 'লাইভ পরীক্ষা' : (ex.tag || 'MCQ') })
       ])
     ]);
     var meta = h('div', { class: 'row muted' }, [
-      h('span', { text: 'মোট নম্বর: ' + bn(ex.qs.length) }),
+      h('span', { text: hasQ(ex) ? 'মোট নম্বর: ' + bn(ex.qs.length) : 'প্রশ্ন প্রস্তুত হচ্ছে' }),
       h('span', { text: 'সময়: ' + (ex.duration ? bn(ex.duration) + ' মিনিট' : 'সীমাহীন') })
     ]);
     var kids = [chips, h('div', { class: 'ctitle', text: ex.title }), meta];
-    if (ex.topic) {
+    if (ex.subjects) {
+      ex.subjects.forEach(function (x) { kids.push(h('div', { class: 'srow' }, [h('b', { text: x.n }), h('span', { text: x.t })])); });
+    } else if (ex.topic) {
       var tp = h('div', { class: 'muted clamp', text: 'টপিক: ' + ex.topic });
       var more = h('button', { class: 'linkbtn', type: 'button', text: 'আরও দেখুন' });
       more.onclick = function () { var c = tp.classList.toggle('clamp'); more.textContent = c ? 'আরও দেখুন' : 'কম দেখুন'; };
       kids.push(tp, more);
     }
-    kids.push(h('div', { class: 'btns' }, [
-      h('button', { class: 'btn', type: 'button', text: 'প্রশ্ন দেখুন', onclick: function () { viewEx = ex; location.hash = 'view'; } }),
-      h('button', { class: 'btn primary', type: 'button', text: 'পরীক্ষা দিন', onclick: function () { startQuiz(ex, ex.qs, ex.duration); } })
-    ]));
+    if (ls && ls !== 'after') kids.push(h('p', { class: 'muted', text: 'লাইভ নিয়ম: শুরুর পর ' + bn(ex.live.joinMin) + ' মিনিটের মধ্যে যোগ দিতে হবে। পরে যেকোনো সময় অনুশীলন করা যাবে।' }));
+    if (ls === 'before') {
+      kids.push(cdBox(ex.live.start, 'শুরু হতে বাকি: '));
+      if (hasQ(ex)) kids.push(h('button', { class: 'btn', type: 'button', disabled: '', text: 'পরীক্ষা এখনো শুরু হয়নি' }));
+    } else if (!hasQ(ex)) {
+      /* questions not added yet: show schedule only */
+    } else {
+      if (ls === 'live') kids.push(cdBox(ex.live.start + ex.live.joinMin * 60000, 'যোগ দেওয়ার সময় বাকি: '));
+      var bs = [];
+      if (ls !== 'live') bs.push(h('button', { class: 'btn', type: 'button', text: 'প্রশ্ন দেখুন', onclick: function () { viewEx = ex; location.hash = 'view'; } }));
+      bs.push(h('button', { class: 'btn primary', type: 'button', text: ls === 'after' ? 'অনুশীলন করুন' : 'পরীক্ষা দিন', onclick: function () { startQuiz(ex, ex.qs, ex.duration); } }));
+      kids.push(h('div', { class: 'btns' }, bs));
+    }
     if (!ex.builtin) {
       var del = h('button', { class: 'linkbtn', type: 'button', text: 'এই পরীক্ষা মুছুন' });
       del.onclick = function () {
@@ -485,7 +1056,7 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
       nodes.push(h('div', { class: 'card' }, [
         h('div', { class: 'row' }, [
           h('span', { class: 'muted', text: fmtDate(d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate())) }),
-          h('span', { class: 'chip ' + (pct >= 60 ? 'done' : ''), text: bn(pct) + '%' })
+          h('span', {}, [a.live ? h('span', { class: 'chip tag', text: 'লাইভ' }) : null, ' ', h('span', { class: 'chip ' + (pct >= 60 ? 'done' : ''), text: bn(pct) + '%' })])
         ]),
         h('div', { class: 'ctitle', text: a.title }),
         h('div', { class: 'row muted' }, [h('span', { text: 'সঠিক: ' + bn(a.score) + '/' + bn(a.total) }), h('span', { text: 'সময়: ' + fmtTime(a.secs) })])
@@ -503,8 +1074,14 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
 
   function sSyllabus() {
     var nodes = [];
-    allExams().forEach(function (ex) {
-      nodes.push(h('div', { class: 'card' }, [h('div', { class: 'ctitle', text: ex.title }), h('p', { class: 'muted', text: ex.topic || 'টপিক দেওয়া নেই।' })]));
+    allExamsRaw().forEach(function (ex) {
+      var kids = [h('div', { class: 'ctitle', text: ex.title })];
+      if (ex.live) kids.push(h('p', { class: 'muted', text: 'পরীক্ষা: ' + fmtWhen(ex.live.start) }));
+      if (ex.subjects) {
+        ex.subjects.forEach(function (x) { kids.push(h('div', { class: 'srow' }, [h('b', { text: x.n }), h('span', { text: x.t })])); });
+        kids.push(h('p', { class: 'muted', text: 'ক্লাসে ও লেসন প্ল্যানে ১৯ নভেম্বর পর্যন্ত যতটুকু পড়ানো হয়েছে ততটুকু থেকেই প্রশ্ন থাকবে।' }));
+      } else kids.push(h('p', { class: 'muted', text: ex.topic || 'টপিক দেওয়া নেই।' }));
+      nodes.push(h('div', { class: 'card' }, kids));
     });
     return shell('সিলেবাস', 'home', nodes);
   }
@@ -562,7 +1139,7 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
         h('label', { class: 'field', for: 'nt' }, ['পরীক্ষার নাম', title]),
         h('div', { class: 'two' }, [h('label', { class: 'field', for: 'nd' }, ['তারিখ', date]), h('label', { class: 'field', for: 'ndur' }, ['সময় (মিনিট)', dur])]),
         h('label', { class: 'field', for: 'ntp' }, ['টপিক (ঐচ্ছিক)', topic]),
-        h('p', { class: 'muted', text: 'প্রতিটি প্রশ্নের মাঝে একটি ফাঁকা লাইন রাখুন। ব্যাখ্যা ঐচ্ছিক।' }),
+        h('p', { class: 'muted', text: 'প্রতিটি প্রশ্নের মাঝে একটি ফাঁকা লাইন রাখুন। ব্যাখ্যা ও বিস্তারিত ঐচ্ছিক ("বিস্তারিত: ..." লাইনে লিখুন)।' }),
         h('pre', { text: 'ইসলামের স্তম্ভ কয়টি?\nক) ৩টি\nখ) ৫টি\nগ) ৭টি\nঘ) ১০টি\nউত্তর: খ\nব্যাখ্যা: ইসলামের মূল স্তম্ভ পাঁচটি।' }),
         h('label', { class: 'field', for: 'ntx' }, ['প্রশ্নগুলো এখানে বসান', ta]),
         save, st,
@@ -607,14 +1184,22 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
   function stopTimer() { if (Q && Q.timerId) { clearInterval(Q.timerId); Q.timerId = null; } }
 
   function startQuiz(ex, list, mins) {
+    var ls0 = liveState(ex);
+    if (ls0 === 'before') return;
     stopTimer();
-    var sh = S.shuffle, qs = sh ? shuffle(list) : list.slice();
+    var sh = S.shuffle, qs;
+    if (list.some(function (q) { return q.s; })) {
+      var order = [], grp = {};
+      list.forEach(function (q) { var k = q.s || 'অন্যান্য'; if (!grp[k]) { grp[k] = []; order.push(k); } grp[k].push(q); });
+      qs = [];
+      order.forEach(function (k) { (sh ? shuffle(grp[k]) : grp[k]).forEach(function (q) { qs.push(q); }); });
+    } else { qs = sh ? shuffle(list) : list.slice(); }
     var pool = qs.map(function (q) {
       var items = q.o.map(function (t, i) { return { t: t, c: i === q.a }; });
       if (sh) items = shuffle(items);
-      return { q: q.q, items: items, e: q.e, src: q };
+      return { q: q.q, s: q.s, items: items, e: q.e, d: q.d, src: q };
     });
-    Q = { ex: ex, list: list, pool: pool, idx: 0, score: 0, results: [], picks: [], mins: mins || 0, startedAt: Date.now(), endAt: Date.now() + (mins || 0) * 60000, locked: false, final: null, timerId: null };
+    Q = { ex: ex, list: list, pool: pool, idx: 0, score: 0, results: [], picks: [], mins: mins || 0, startedAt: Date.now(), endAt: Date.now() + (mins || 0) * 60000, locked: false, final: null, timerId: null, live: ls0 === 'live' && !S.attempts.some(function (a) { return a.id === ex.id && a.live; }) };
     if (Q.mins) Q.timerId = setInterval(tick, 250);
     if (location.hash === '#quiz') route(); else location.hash = 'quiz';
   }
@@ -628,8 +1213,8 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
   function sQuiz() {
     var qNo = h('span'), qSc = h('span'), timer = h('span', { class: 'timer', hidden: '' });
     var fill = h('i'), bar = h('div', { class: 'bar' }, [fill]);
-    var qText = h('div', { class: 'qtext' }), headFav = h('div');
-    var opts = h('div', { class: 'opts' }), fb = h('div', { class: 'fb', hidden: '', role: 'status' }), ex = h('div', { class: 'muted', hidden: '' });
+    var qText = h('div', { class: 'qtext' }), headFav = h('div'), subj = h('span', { class: 'chip tag subj', hidden: '' });
+    var opts = h('div', { class: 'opts' }), fb = h('div', { class: 'fb', hidden: '', role: 'status' }), ex = h('div', { class: 'muted', hidden: '' }), det = h('div');
     var next = h('button', { class: 'btn primary', type: 'button', disabled: '' });
     var quit = h('button', { class: 'btn', type: 'button', text: 'বন্ধ করুন', onclick: function () { location.hash = 'archive'; } });
     Q.tEl = timer;
@@ -639,9 +1224,9 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
       qNo.textContent = 'প্রশ্ন ' + bn(Q.idx + 1) + ' / ' + bn(Q.pool.length);
       qSc.textContent = 'সঠিক: ' + bn(Q.score);
       fill.style.width = (Q.idx / Q.pool.length * 100) + '%';
-      qText.textContent = p.q;
+      qText.textContent = p.q; subj.hidden = !p.s; subj.textContent = p.s || '';
       headFav.innerHTML = ''; headFav.appendChild(favBtn(p.src));
-      fb.hidden = true; ex.hidden = true; next.disabled = true;
+      fb.hidden = true; ex.hidden = true; det.innerHTML = ''; next.disabled = true;
       next.textContent = Q.idx === Q.pool.length - 1 ? 'ফলাফল দেখুন' : 'পরবর্তী প্রশ্ন';
       opts.innerHTML = '';
       p.items.forEach(function (it, i) {
@@ -667,6 +1252,7 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
         fb.className = 'fb bad'; fb.textContent = '✗ ভুল। সঠিক উত্তর: ' + LETTERS[ci] + ') ' + p.items[ci].t;
       }
       if (p.e) { ex.hidden = false; ex.textContent = 'ব্যাখ্যা: ' + p.e; }
+      if (p.d) det.appendChild(detailBlock(p.d));
       qSc.textContent = 'সঠিক: ' + bn(Q.score);
       fill.style.width = ((Q.idx + 1) / Q.pool.length * 100) + '%';
       next.disabled = false; next.focus();
@@ -675,7 +1261,7 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
 
     var wrap = shell(Q.ex.title, null, [
       h('div', { class: 'qtop' }, [qNo, timer, qSc]), bar,
-      h('div', { class: 'card' }, [h('div', { class: 'qhead' }, [qText, headFav]), opts, fb, ex]),
+      h('div', { class: 'card' }, [subj, h('div', { class: 'qhead' }, [qText, headFav]), opts, fb, ex, det]),
       h('div', { class: 'btns' }, [quit, next])
     ]);
     showQ();
@@ -688,18 +1274,20 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
     var wrong = [], answered = 0;
     Q.pool.forEach(function (p, i) {
       var key = p.src.q;
-      if (Q.results[i] === undefined) { wrong.push({ q: p.q, you: null, right: rightText(p) }); S.wrong[key] = { q: p.src.q, o: p.src.o, a: p.src.a, e: p.src.e || '' }; }
+      if (Q.results[i] === undefined) { wrong.push({ q: p.q, you: null, right: rightText(p) }); S.wrong[key] = { q: p.src.q, o: p.src.o, a: p.src.a, e: p.src.e || '', d: p.src.d || '', s: p.src.s || '' }; }
       else {
         answered++;
         if (Q.results[i]) delete S.wrong[key];
-        else { wrong.push({ q: p.q, you: Q.picks[i], right: rightText(p) }); S.wrong[key] = { q: p.src.q, o: p.src.o, a: p.src.a, e: p.src.e || '' }; }
+        else { wrong.push({ q: p.q, you: Q.picks[i], right: rightText(p) }); S.wrong[key] = { q: p.src.q, o: p.src.o, a: p.src.a, e: p.src.e || '', d: p.src.d || '', s: p.src.s || '' }; }
       }
     });
+    var subs = {}, subOrder = [];
+    Q.pool.forEach(function (p, i) { if (!p.s) return; if (!subs[p.s]) { subs[p.s] = { c: 0, t: 0 }; subOrder.push(p.s); } subs[p.s].t++; if (Q.results[i]) subs[p.s].c++; });
     var secs = Math.round((Date.now() - Q.startedAt) / 1000);
     if (Q.mins) secs = Math.min(secs, Q.mins * 60);
-    Q.final = { score: Q.score, total: Q.pool.length, answered: answered, secs: secs, timedOut: !!timedOut, wrong: wrong };
+    Q.final = { score: Q.score, total: Q.pool.length, answered: answered, secs: secs, timedOut: !!timedOut, wrong: wrong, subs: subOrder.map(function (k) { return { name: k, c: subs[k].c, t: subs[k].t }; }) };
     if (!Q.ex.practice) {
-      S.attempts.unshift({ id: Q.ex.id, title: Q.ex.title, ts: Date.now(), score: Q.score, total: Q.pool.length, secs: secs });
+      S.attempts.unshift({ id: Q.ex.id, title: Q.ex.title, ts: Date.now(), score: Q.score, total: Q.pool.length, secs: secs, live: !!Q.live });
       S.attempts = S.attempts.slice(0, 200); lsSet('pm_attempts', S.attempts);
     }
     lsSet('pm_wrong', S.wrong);
@@ -710,11 +1298,16 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
     var f = Q.final, pct = Math.round(f.score / f.total * 100);
     var msg = pct >= 80 ? 'চমৎকার! আলহামদুলিল্লাহ।' : pct >= 50 ? 'ভালো হয়েছে, আরেকটু অনুশীলন করুন।' : 'আবার পড়ে নিয়ে নতুন করে চেষ্টা করুন।';
     var nodes = [h('div', { class: 'card' }, [
-      h('p', { class: 'muted', text: f.timedOut ? 'সময় শেষ! আপনার ফলাফল' : 'আপনার ফলাফল' }),
+      h('p', { class: 'muted', text: (Q.live ? 'লাইভ পরীক্ষা · ' : '') + (f.timedOut ? 'সময় শেষ! আপনার ফলাফল' : 'আপনার ফলাফল') }),
       h('div', { class: 'score-big', text: bn(f.score) + ' / ' + bn(f.total) }),
       h('p', { style: 'font-weight:600', text: bn(pct) + '% সঠিক। ' + msg }),
       h('p', { class: 'muted', text: 'উত্তর দিয়েছেন ' + bn(f.answered) + '/' + bn(f.total) + 'টি। সময় লেগেছে ' + fmtTime(f.secs) + '।' })
     ])];
+    if (f.subs && f.subs.length) {
+      var sb = h('div', { class: 'card' }, [h('div', { class: 'ctitle', text: 'বিষয়ভিত্তিক ফলাফল' })]);
+      f.subs.forEach(function (x) { sb.appendChild(h('div', { class: 'row' }, [h('span', { text: x.name }), h('span', { class: 'num', style: 'font-weight:700', text: bn(x.c) + ' / ' + bn(x.t) })])); });
+      nodes.push(sb);
+    }
     if (f.wrong.length) {
       var box = h('div', { class: 'card' }, [h('div', { class: 'ctitle', text: 'যেগুলো ভুল বা বাদ গেছে' })]);
       f.wrong.forEach(function (w) {
@@ -745,13 +1338,24 @@ pre { margin: 0; white-space: pre-wrap; background: var(--surface2); border: 1px
     if (name !== 'quiz') stopTimer();
     if (name === 'quiz' && (!Q || Q.final)) name = 'archive';
     if (name === 'result' && (!Q || !Q.final)) name = 'home';
-    if (name === 'view' && !viewEx) name = 'archive';
+    if (name === 'view' && (!viewEx || ['before', 'live'].indexOf(liveState(viewEx)) >= 0)) name = 'archive';
     if (!SCREENS[name]) name = 'home';
     var app = $('app'); app.innerHTML = '';
     app.appendChild(SCREENS[name]());
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
+  setInterval(function () {
+    var els = document.querySelectorAll('.cd');
+    if (!els.length) return;
+    var redo = false;
+    [].forEach.call(els, function (el) {
+      var left = +el.getAttribute('data-t') - now();
+      if (left <= 0) redo = true; else el.textContent = (el.getAttribute('data-pre') || '') + fmtCountdown(left);
+    });
+    var nm = (location.hash || '').replace('#', '') || 'home';
+    if (redo && nm !== 'quiz') route();
+  }, 1000);
   route();
 })();
 </script>
