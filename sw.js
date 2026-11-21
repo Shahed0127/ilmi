@@ -1,8 +1,17 @@
+ফাইল দেখতে না পেলে কপি-পেস্ট করলেই হবে, আপলোড লাগবে না। আপনি ফাইল আপলোডের বদলে লেখাটা পেস্ট করতে পারেন।
+
+**করণীয় (GitHub অ্যাপে বা ব্রাউজারে):**
+1. `ilmi` রিপোজিটরিতে `sw.js` ফাইলে চাপুন।
+2. পেন্সিল (Edit) আইকনে চাপুন।
+3. ভেতরের সব লেখা মুছে নিচের পুরো কোড পেস্ট করুন।
+4. ওপরে ডানে Commit changes চাপুন, আবার Commit চাপুন।
+
+```js
 /* ILMI service worker: works offline after the first visit. Bump CACHE when you publish new questions. */
-var CACHE = 'ilmi-v1';
+var CACHE = 'ilmi-v2';
 var SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));
+  e.waitUntil(caches.open(CACHE).then(function (c) { return Promise.all(SHELL.map(function (u) { return c.add(u).catch(function () {}); })); }).then(function () { return self.skipWaiting(); }));
 });
 self.addEventListener('activate', function (e) {
   e.waitUntil(caches.keys().then(function (keys) {
@@ -14,12 +23,11 @@ self.addEventListener('fetch', function (e) {
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   if (url.origin === location.origin) {
-    // network first so new questions appear quickly, cache as fallback
     e.respondWith(fetch(req).then(function (res) {
       var copy = res.clone();
-      caches.open(CACHE).then(function (c) { c.put(req, copy); });
+      if (res.ok) { caches.open(CACHE).then(function (c) { c.put(req, copy); }).catch(function () {}); }
       return res;
-    }).catch(function () { return caches.match(req).then(function (m) { return m || caches.match('index.html'); }); }));
+    }).catch(function () { return caches.match(req).then(function (m) { return m || caches.match('index.html'); }).then(function (m) { return m || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain' } }); }); }));
   } else if (/fonts\.(googleapis|gstatic)\.com$/.test(url.hostname)) {
     e.respondWith(caches.match(req).then(function (m) {
       return m || fetch(req).then(function (res) {
@@ -30,3 +38,5 @@ self.addEventListener('fetch', function (e) {
     }));
   }
 });
+```
+
