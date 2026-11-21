@@ -1,12 +1,3 @@
-ফাইল দেখতে না পেলে কপি-পেস্ট করলেই হবে, আপলোড লাগবে না। আপনি ফাইল আপলোডের বদলে লেখাটা পেস্ট করতে পারেন।
-
-**করণীয় (GitHub অ্যাপে বা ব্রাউজারে):**
-1. `ilmi` রিপোজিটরিতে `sw.js` ফাইলে চাপুন।
-2. পেন্সিল (Edit) আইকনে চাপুন।
-3. ভেতরের সব লেখা মুছে নিচের পুরো কোড পেস্ট করুন।
-4. ওপরে ডানে Commit changes চাপুন, আবার Commit চাপুন।
-
-```js
 /* ILMI service worker: works offline after the first visit. Bump CACHE when you publish new questions. */
 var CACHE = 'ilmi-v2';
 var SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
@@ -38,5 +29,3 @@ self.addEventListener('fetch', function (e) {
     }));
   }
 });
-```
-
